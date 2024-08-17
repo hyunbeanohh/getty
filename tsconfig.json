@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "ESNext",
+      "useDefineForClassFields": true,
+      "lib": ["ES2020", "DOM", "DOM.Iterable"],
+      "moduleResolution": "bundler",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "allowJs": false,
+      "jsx": "react-jsx",
+  
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    },
+    "include": ["src", "vite.config.js"],
+    "exclude": ["node_modules", "build", "dist"]
+  }

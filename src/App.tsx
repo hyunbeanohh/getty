@@ -1,9 +1,13 @@
 import React from 'react'
+import ClubApplicationStatus from './ClubApplicationStatus';
 
-const App = () => {
+function App() {
   return (
-    <div>App</div>
-  )
+    <div className="App">
+      <h1>IT 동아리 지원 현황</h1>
+      <ClubApplicationStatus />
+    </div>
+  );
 }
 
-export default App
+export default App;

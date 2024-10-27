@@ -1,0 +1,12 @@
+[
+    {
+      "name": "동아리1",
+      "url": "https://example.com/club1",
+      "button_text": "지원 모집"
+    },
+    {
+      "name": "동아리2",
+      "url": "https://example.com/club2",
+      "button_text": "지원하기"
+    }
+  ]

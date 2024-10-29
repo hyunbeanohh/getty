@@ -19,7 +19,11 @@ def scrape_clubs():
     results = {}
 
     for club in clubs:
-        status = check_application_status(club['url'], club['button_text'])
+        status = check_application_status(
+            club['url'], 
+            club['button_text'],
+            club.get('button_selector')
+        )
         results[club['name']] = {
             "url": club['url'],
             "status": status
@@ -36,7 +40,7 @@ def get_results():
         results = json.load(f)
     return jsonify(results)
 
-def check_application_status(url, button_text):
+def check_application_status(url, button_text, button_selector=None):
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -44,7 +48,16 @@ def check_application_status(url, button_text):
         return "Error"
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    button = soup.find('button', text=button_text)
+    button = None
+    
+    if button_selector:
+        if button_selector.startswith('#'):
+            button = soup.find(id=button_selector[1:])
+        elif button_selector.startswith('.'):
+            button = soup.find(class_=button_selector[1:])
+    
+    if not button:
+        button = soup.find('button', text=button_text)
     
     return "ON" if button else "OFF"
 

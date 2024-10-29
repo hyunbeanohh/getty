@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def check_application_status(url, button_text):
+def check_application_status(url, button_text, button_selector=None):
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -11,12 +11,20 @@ def check_application_status(url, button_text):
         return "Error"
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    button = soup.find('button', text=button_text)
+    button = None
     
-    if button:
-        return "ON"
-    else:
-        return "OFF"
+    # 선택자가 있는 경우 먼저 시도
+    if button_selector:
+        if button_selector.startswith('#'):
+            button = soup.find(id=button_selector[1:])
+        elif button_selector.startswith('.'):
+            button = soup.find(class_=button_selector[1:])
+    
+    # 선택자로 찾지 못한 경우 텍스트로 검색
+    if not button:
+        button = soup.find('button', text=button_text)
+    
+    return "ON" if button else "OFF"
 
 def main():
     # 서버에서 IT 동아리 URL 목록 가져오기
@@ -27,7 +35,11 @@ def main():
     results = {}
     
     for club in clubs:
-        status = check_application_status(club['url'], club['button_text'])
+        status = check_application_status(
+            club['url'], 
+            club['button_text'],
+            club.get('button_selector')
+        )
         results[club['name']] = {
             "url": club['url'],
             "status": status

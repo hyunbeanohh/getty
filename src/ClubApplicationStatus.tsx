@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 interface ClubStatus {
   [key: string]: {
@@ -16,17 +15,47 @@ function ClubApplicationStatus() {
   useEffect(() => {
     const fetchClubStatus = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/getClubUrls');
-        const clubs = response.data;
+        console.log('Fetching club URLs...');
+        const response = await fetch('/api/getClubUrls', {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Origin': 'http://localhost:5173',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Club URLs response:', data);
 
-        // 서버에 크롤링 요청
-        await axios.post('http://localhost:5000/api/scrapeClubs', clubs);
+        console.log('Sending scrape request...');
+        const scrapeResponse = await fetch('/api/scrapeClubs', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Origin': 'http://localhost:5173',
+          },
+          body: JSON.stringify(data),
+        });
 
-        // 크롤링 결과 가져오기
-        const resultsResponse = await axios.get('http://localhost:5000/api/getResults');
-        setClubStatus(resultsResponse.data);
+        if (!scrapeResponse.ok) {
+          throw new Error(`HTTP error! status: ${scrapeResponse.status}`);
+        }
+        
+        const scrapeData = await scrapeResponse.json();
+        console.log('Scrape response:', scrapeData);
+
+        setClubStatus(scrapeData);
         setLoading(false);
       } catch (err) {
+        console.error('Error details:', err);
         setError('데이터를 불러오는 중 오류가 발생했습니다.');
         setLoading(false);
       }

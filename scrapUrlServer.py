@@ -5,61 +5,45 @@ import requests
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
-CORS(app)  # CORS 설정 추가
+# CORS 설정을 더 구체적으로 지정
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["http://localhost:5173"],  # React 개발 서버 주소
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization", "Accept"]
+    }
+})
 
-@app.route('/api/getData', methods=['GET'])
-def get_buttons():
-    with open('button_texts.json') as f:
-        button_texts = json.load(f)
-    return jsonify(button_texts)
+@app.route('/api/getClubUrls', methods=['GET', 'OPTIONS'])
+def get_club_urls():
+    # OPTIONS 요청 처리
+    if request.method == 'OPTIONS':
+        response = app.make_default_options_response()
+        return response
 
-@app.route('/api/scrapeClubs', methods=['POST'])
-def scrape_clubs():
-    clubs = request.json
-    results = {}
-
-    for club in clubs:
-        status = check_application_status(
-            club['url'], 
-            club['button_text'],
-            club.get('button_selector')
-        )
-        results[club['name']] = {
-            "url": club['url'],
-            "status": status
-        }
-
-    with open('scraping_results.json', 'w', encoding='utf-8') as f:
-        json.dump(results, f, ensure_ascii=False, indent=4)
-
-    return jsonify({"status": "success"})
-
-@app.route('/api/getResults', methods=['GET'])
-def get_results():
-    with open('scraping_results.json', 'r', encoding='utf-8') as f:
-        results = json.load(f)
-    return jsonify(results)
-
-def check_application_status(url, button_text, button_selector=None):
+    print("GET /api/getClubUrls 요청 받음")
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-    except requests.exceptions.RequestException:
-        return "Error"
+        with open('club_urls.json', 'r', encoding='utf-8') as f:
+            club_data = json.load(f)
+        print("데이터 로드 성공:", club_data)
+        response = jsonify(club_data)
+        # CORS 헤더 직접 설정
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        return response
+    except Exception as e:
+        print(f"Error in get_club_urls: {e}")
+        return jsonify({"error": str(e)}), 500
 
-    soup = BeautifulSoup(response.text, 'html.parser')
-    button = None
-    
-    if button_selector:
-        if button_selector.startswith('#'):
-            button = soup.find(id=button_selector[1:])
-        elif button_selector.startswith('.'):
-            button = soup.find(class_=button_selector[1:])
-    
-    if not button:
-        button = soup.find('button', text=button_text)
-    
-    return "ON" if button else "OFF"
+@app.route('/api/test', methods=['GET', 'OPTIONS'])
+def test():
+    if request.method == 'OPTIONS':
+        response = app.make_default_options_response()
+        return response
+        
+    response = jsonify({"message": "API is working!"})
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+    return response
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    print("서버 시작: http://localhost:5000")
+    app.run(debug=True, port=5000)

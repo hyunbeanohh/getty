@@ -5,3 +5,4 @@
 
 # Ignore package manager directories
 /node_modules/
+/.venv/

@@ -18,12 +18,10 @@ function ClubApplicationStatus() {
         console.log('Fetching club URLs...');
         const response = await fetch('/api/getClubUrls', {
           method: 'GET',
-          credentials: 'include',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Origin': 'http://localhost:5173',
-          },
+            'Content-Type': 'application/json'
+          }
         });
         
         if (!response.ok) {
@@ -36,11 +34,9 @@ function ClubApplicationStatus() {
         console.log('Sending scrape request...');
         const scrapeResponse = await fetch('/api/scrapeClubs', {
           method: 'POST',
-          credentials: 'include',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Origin': 'http://localhost:5173',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(data),
         });
@@ -70,7 +66,7 @@ function ClubApplicationStatus() {
 
   return (
     <div>
-      <h2>동아리 지원 현황</h2>
+      <h2>동아리 지원 현��</h2>
       <ul>
         {Object.entries(clubStatus).map(([clubName, info]) => (
           <li key={clubName}>

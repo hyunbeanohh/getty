@@ -66,7 +66,7 @@ function ClubApplicationStatus() {
 
   return (
     <div>
-      <h2>동아리 지원 현��</h2>
+      <h2>동아리 지원 현황</h2>
       <ul>
         {Object.entries(clubStatus).map(([clubName, info]) => (
           <li key={clubName}>

@@ -1,11 +1,11 @@
 import React from 'react'
-import ClubApplicationStatus from './ClubApplicationStatus';
+import ClubApplicationStatus from './hooks/ClubApplicationStatus';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
     <div className="App">
-      <h1>IT 동아리 지원 현황</h1>
-      <ClubApplicationStatus />
+      <MainPage />
     </div>
   );
 }

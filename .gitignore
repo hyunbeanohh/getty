@@ -6,3 +6,5 @@
 # Ignore package manager directories
 /node_modules/
 /.venv/
+# Ignore club_urls.json file
+/server/club_urls.json

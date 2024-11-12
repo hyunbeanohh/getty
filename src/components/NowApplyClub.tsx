@@ -22,7 +22,14 @@ const NowApplyClub = () => {
             <div className={`slide original ${animate ? "" : "stop"}`}>
               {ItSlide.map((item, index) => (
                 <li key={index} className={index%2 === 0 ? 'w-[280px] h-[280px]' : 'w-[200px] h-[200px]'}>
-                  <div className={`w-[280px] h-[280px] bg-${item.color}`}></div>
+                  <div className={`w-full h-full bg-${item.color}`}></div>
+                </li>
+              ))}
+            </div>
+            <div className={`slide clone ${!animate ? "" : "stop"}`}>
+              {ItSlide.map((item, index) => (
+                <li key={index} className={index%2 === 0 ? 'w-[280px] h-[280px]' : 'w-[200px] h-[200px]'}>
+                  <div className={`w-full h-full bg-${item.color}`}></div>
                 </li>
               ))}
             </div>

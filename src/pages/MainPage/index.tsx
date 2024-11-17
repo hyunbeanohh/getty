@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../components/Header"
 import SearchBar from "../../components/SearchBar"
 import NowApplyClub from "../../components/NowApplyClub"
+import ClubRanking from "../../components/ClubRanking"
 
 function MainPage() {
     return (
@@ -9,6 +10,7 @@ function MainPage() {
             <Header />
             <SearchBar />
             <NowApplyClub />
+            <ClubRanking/>  
         </div>
     );
 }

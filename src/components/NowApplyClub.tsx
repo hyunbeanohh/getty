@@ -14,10 +14,10 @@ const NowApplyClub = () => {
   const onStart = () => setAnimate(true);
 
   return (
-    <div className="wrapper w-full mt-5 w-4/5 mx-auto">
+    <div className="wrapper w-[1500px] mt-5 mx-auto">
             <div className="overflow-hidden bg-white">
               <div className='flex justify-between items-center px-5 mb-5'>
-                <span className='relative text-lg block relative left-10 mt-3 mb-5 font-semibold font-pretendard'>현재 모집 중인 동아리</span>
+                <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>현재 모집 중인 동아리</span>
                 
                 <select className='p-2 border rounded-md'>
                   <option value="최신순">전체</option>
@@ -26,7 +26,7 @@ const NowApplyClub = () => {
                 </select>
               </div>
                 <ul
-                    className="flex flex-nowrap w-[1200px] h-[200px] overflow-hidden mx-auto"
+                    className="flex flex-nowrap w-[1200px] h-[200px] overflow-hidden mx-auto mb-10"
                     onMouseEnter={onStop}
                     onMouseLeave={onStart}
                 >

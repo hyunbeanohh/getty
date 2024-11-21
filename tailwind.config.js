@@ -3,6 +3,18 @@ export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+
+      colors: {
+        default :{
+          DEFAULT : '#000',
+          foreground: 'white'
+        },
+        primary: {
+          DEFAULT: 'rgb(0 0% 100%)',
+          foreground: 'rgb(0 0% 98%)'
+        },
+      },
+
       animation: {
         'infinite1': 'infinite1 25s linear infinite',
         'infinite2': 'infinite2 25s linear infinite',

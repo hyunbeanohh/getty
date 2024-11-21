@@ -15,18 +15,25 @@ const ClubRanking = () => {
   const Card = ({ club, img }: { club: any, img: any }) => {
     return (
       <article>
-        <div className='flex w-[250px] h-[350px] mb-10'>
+        <div className='relative flex w-[250px] h-[400px] border-2 p-4 border-gray-300 rounded'>
           <a className='w-full h-full' href='javascript:;' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
             <span className='block w-full h-full'>
               <img src={img} alt={club.name} className='w-full h-full object-fit'/>
+              {/* 인기 동아리 */}
+              
             </span>
           </a>
-          <div>
-            {/* 동아리 이름 */}
-            {/* 동아리 순위 */}
+          <div className='absolute bottom-2 left-0 flex flex-col gap-1 p-2 w-full bg-white'>
             {/* 동아리 남은 모집 날짜 */}
+            {/* <span>{club.date}</span> */}
+            <div className='w-fit inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-default text-default-foreground hover:bg-default/80'>D-10</div>
+            {/* 동아리 이름 */}
+            <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.name}</h3>
+            {/* 동아리 요약 */}
+            {/* <h4 className='text-xs'>{club.summary}</h4> */}
+            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>동아리 요약</span>
           </div>
         </div>
         

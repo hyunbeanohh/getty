@@ -15,7 +15,7 @@ const ClubRanking = () => {
   const Card = ({ club, img }: { club: any, img: any }) => {
     return (
       <article>
-        <div className='relative flex w-[250px] h-[400px] border-2 p-4 border-gray-300 rounded'>
+        <div className='relative flex w-[250px] h-[300px] border-2 p-4 border-gray-300 rounded'>
           <a className='w-full h-full' href='javascript:;' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
@@ -53,7 +53,7 @@ const ClubRanking = () => {
         </div>
 
         <div>
-          <span className='relative text-lg block left-10 mt-10 mb-5 font-semibold font-pretendard'>인기 동아리 순위</span>
+          <span className='relative text-lg block left-10 mt-10 mb-5 font-semibold font-pretendard'>인기 동아리</span>
           <div className='flex flex-wrap justify-center gap-10'>
             {/* 임시 동아리 데이터 연동 */}
             {clubData.map((club) => (

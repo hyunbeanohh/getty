@@ -21,7 +21,7 @@ const NowApplyClub = () => {
                 
                 <select className='p-2 border rounded-md'>
                   <option value="최신순">전체</option>
-                  <option value="마감순">동아리</option>
+                  <option value="마감순">최신순</option>
                   <option value="">여유있는순</option>
                 </select>
               </div>

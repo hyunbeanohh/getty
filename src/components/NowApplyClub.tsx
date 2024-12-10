@@ -1,12 +1,21 @@
 import React, { useState } from 'react'
+import guideImage from '@/assets/images/guideImage.png';
+import Depromeet from '@/assets/images/Deproment.png';
+import DND from '@/assets/images/DND.png';
+import YAPP from '@/assets/images/YAPP.png';
+import DDD from '@/assets/images/DDD.png';
+// import mashup from '@/assets/images/mashup.png';
+// import SOPT from '@/assets/images/SOPT.png';
+// import NEXTERS from '@/assets/images/NEXTERS.png';
+// import Prography from '@/assets/images/Prography.png';
 
 const NowApplyClub = () => {
 
-  const slides = [ // 상태 관리 툴으로 변경 필요
-    { color : "red", target: "#"},
-    { color : "blue", target: "#"},
-    { color : "green", target: "#"},
-    { color : "yellow", target: "#"},
+  const slides = [
+    { image: Depromeet, target: "#" },
+    { image: DND, target: "#" },
+    { image: YAPP, target: "#" },
+    { image: DDD, target: "#" },
   ]
   
   const [animate, setAnimate] = useState(true);
@@ -15,7 +24,7 @@ const NowApplyClub = () => {
 
   return (
     <div className="wrapper w-[1500px] mt-5 mx-auto">
-            <div className="overflow-hidden bg-white">
+            <div className="overflow-hidden bg-white rounded-lg">
               <div className='flex justify-between items-center px-5 mb-5'>
                 <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>현재 모집 중인 동아리</span>
                 
@@ -38,14 +47,14 @@ const NowApplyClub = () => {
                         {slides.map((s, i) => (
                             <li
                                 key={i}
-                                className={`mx-20 cursor-pointer z-[2] transition-all duration-300 hover:scale-[0.98]
+                                className={`mx-20 cursor-pointer z-[2] hover:scale-[0.98]
                                     hover:after:content-[''] hover:after:absolute hover:after:inset-0 
-                                    hover:after:w-full hover:after:h-full hover:after:bg-black/20
+                                    hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg
                                     w-[200px] h-[200px]`}
                             >
                                 <div
-                                    className="w-full h-full"
-                                    style={{ background: s.color }}
+                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain"
+                                    style={{ backgroundImage: `url(${s.image})` }}
                                 ></div>
                             </li>
                         ))}
@@ -58,14 +67,14 @@ const NowApplyClub = () => {
                         {slides.map((s, i) => (
                             <li
                                 key={i}
-                                className={`mx-20 cursor-pointer z-[2] transition-all duration-300 hover:scale-[0.98]
+                                className={`mx-20 cursor-pointer z-[2] hover:scale-[0.58]
                                     hover:after:content-[''] hover:after:absolute hover:after:inset-0 
-                                    hover:after:w-full hover:after:h-full hover:after:bg-black/20
+                                    hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg
                                     w-[200px] h-[200px]`}
                             >
                                 <div
-                                    className="w-full h-full"
-                                    style={{ background: s.color }}
+                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain"
+                                    style={{ backgroundImage: `url(${s.image})` }}
                                 ></div>
                             </li>
                         ))}

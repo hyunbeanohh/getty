@@ -47,13 +47,13 @@ const NowApplyClub = () => {
                         {slides.map((s, i) => (
                             <li
                                 key={i}
-                                className={`mx-20 cursor-pointer z-[2] hover:scale-[0.98]
+                                className={`mx-20 cursor-pointer z-[2] hover:scale-[1] rounded-lg
                                     hover:after:content-[''] hover:after:absolute hover:after:inset-0 
                                     hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg
                                     w-[200px] h-[200px]`}
                             >
                                 <div
-                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain"
+                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain rounded-lg"
                                     style={{ backgroundImage: `url(${s.image})` }}
                                 ></div>
                             </li>
@@ -67,13 +67,13 @@ const NowApplyClub = () => {
                         {slides.map((s, i) => (
                             <li
                                 key={i}
-                                className={`mx-20 cursor-pointer z-[2] hover:scale-[0.58]
+                                className={`mx-20 cursor-pointer z-[2] hover:scale-[1] rounded-lg
                                     hover:after:content-[''] hover:after:absolute hover:after:inset-0 
                                     hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg
                                     w-[200px] h-[200px]`}
                             >
                                 <div
-                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain"
+                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain rounded-lg"
                                     style={{ backgroundImage: `url(${s.image})` }}
                                 ></div>
                             </li>

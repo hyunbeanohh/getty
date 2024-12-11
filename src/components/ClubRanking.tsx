@@ -6,18 +6,26 @@ import YAPP from '@/assets/images/YAPP.png';
 import DDD from '@/assets/images/DDD.png';
 import MashUP from '@/assets/images/mashup.png';
 
+interface Club {
+  id: number;
+  name: string;
+  rank: number;
+  image: string;
+  description: string;
+}
+
 const ClubRanking = () => {
   // 임시 동아리 데이터
   const clubData = [
-    { id: 1, name: '동아리1', rank: 1 , image: Depromeet},
-    { id: 2, name: '동아리2', rank: 2 , image: DDD},
-    { id: 3, name: '동아리3', rank: 3 , image: DND},
-    { id: 4, name: '동아리4', rank: 4 , image: YAPP},
-    { id: 5, name: '동아리5', rank: 5 , image: MashUP}
+    { id: 1, name: '디프만', rank: 1 , image: Depromeet, description: '디프만은 디자이너와 프로그래머가 만났을 때를 의미합니다.' },
+    { id: 2, name: 'DDD', rank: 2 , image: DDD, description: 'DDD는 Developer Developer Developer의 약자입니다.' },
+    { id: 3, name: 'DND', rank: 3 , image: DND, description: 'DND는 개발자들의 네트워킹 동아리입니다.' },
+    { id: 4, name: 'YAPP', rank: 4 , image: YAPP, description: 'YAPP은 IT 연합 동아리입니다.' },
+    { id: 5, name: 'MashUP', rank: 5 , image: MashUP, description: 'MashUp은 IT 창업 연합 동아리입니다.' }
       
   ];
   
-  const Card = ({ club, img }: { club: any, img: any }) => {
+  const Card = ({ club, img }: { club: Club, img: string }) => {
     return (
       <article>
         <div className='relative flex w-[250px] h-[300px] border-2 p-4 border-gray-300 rounded'>
@@ -37,8 +45,7 @@ const ClubRanking = () => {
             {/* 동아리 이름 */}
             <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.name}</h3>
             {/* 동아리 요약 */}
-            {/* <h4 className='text-xs'>{club.summary}</h4> */}
-            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>동아리 요약</span>
+            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.description}</span>
           </div>
         </div>
         

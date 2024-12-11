@@ -35,46 +35,46 @@ const NowApplyClub = () => {
                 </select>
               </div>
                 <ul
-                    className="flex flex-nowrap w-[1200px] h-[200px] overflow-hidden mx-auto mb-10"
+                    className="flex flex-nowrap w-[1200px] h-[220px] overflow-hidden mx-auto mb-10"
                     onMouseEnter={onStop}
                     onMouseLeave={onStart}
                 >
                     <div
-                        className={`flex items-center flex-nowrap relative mb-10
+                        className={`flex items-center flex-nowrap relative mb-5
                             animate-infinite1
                             ${!animate ? '[animation-play-state:paused]' : '[animation-play-state:running]'}`}
                     >
                         {slides.map((s, i) => (
                             <li
                                 key={i}
-                                className={`mx-20 cursor-pointer z-[2] hover:scale-[1] rounded-lg
+                                className={`mx-20 cursor-pointer z-[2] hover:scale-[1] rounded-lg overflow-hidden
                                     hover:after:content-[''] hover:after:absolute hover:after:inset-0 
                                     hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg
-                                    w-[200px] h-[200px]`}
+                                    w-[200px] h-[200px] p-[1px]`}
                             >
                                 <div
-                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain rounded-lg"
-                                    style={{ backgroundImage: `url(${s.image})` }}
+                                    className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg border-2 border-gray-300"
+                                    style={{ backgroundImage: `url(${s.image})`, backgroundSize: 'contain' }}
                                 ></div>
                             </li>
                         ))}
                     </div>
                     <div
-                        className={`flex items-center flex-nowrap relative mb-10
+                        className={`flex items-center flex-nowrap relative mb-5
                             animate-infinite2
                             ${!animate ? '[animation-play-state:paused]' : '[animation-play-state:running]'}`}
                     >
                         {slides.map((s, i) => (
                             <li
                                 key={i}
-                                className={`mx-20 cursor-pointer z-[2] hover:scale-[1] rounded-lg
+                                className={`mx-20 cursor-pointer z-[2] hover:scale-[1] rounded-lg overflow-hidden
                                     hover:after:content-[''] hover:after:absolute hover:after:inset-0 
                                     hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg
-                                    w-[200px] h-[200px]`}
+                                    w-[200px] h-[200px] p-[1px]`}
                             >
                                 <div
-                                    className="w-full h-full bg-cover bg-center bg-no-repeat bg-contain rounded-lg"
-                                    style={{ backgroundImage: `url(${s.image})` }}
+                                    className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg border-2 border-gray-300"
+                                    style={{ backgroundImage: `url(${s.image})`, backgroundSize: 'contain' }}
                                 ></div>
                             </li>
                         ))}

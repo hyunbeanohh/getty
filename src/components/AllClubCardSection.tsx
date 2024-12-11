@@ -1,20 +1,37 @@
 import React from 'react'
 import guideImage from '@/assets/images/guideImage.png';
+import image1 from '@/assets/images/image1.png';
+import image2 from '@/assets/images/image2.png';
+import image3 from '@/assets/images/image3.png';
+import image4 from '@/assets/images/image4.png';
+import image5 from '@/assets/images/image5.png';
+import image6 from '@/assets/images/image6.png';
+import image7 from '@/assets/images/image7.png';
+import image8 from '@/assets/images/image8.png';
 
 const AllClubCardSection = () => {
 
   const clubData = [
-    { id: 1, name: '동아리1', rank: 1 , image: guideImage},
-    { id: 2, name: '동아리2', rank: 2 , image: guideImage},
-    { id: 3, name: '동아리3', rank: 3 , image: guideImage},
-    { id: 4, name: '동아리4', rank: 4 , image: guideImage},
-    { id: 5, name: '동아리5', rank: 5 , image: guideImage},
-    { id: 6, name: '동아리6', rank: 6 , image: guideImage},
-    { id: 7, name: '동아리7', rank: 7 , image: guideImage},
-    { id: 8, name: '동아리8', rank: 8 , image: guideImage}
+    { id: 1, name: '같이에듀', rank: 1 , image: image1, summary: '교육 봉사 동아리', date: '2024-04-10' },
+    { id: 2, name: 'SF AWARD', rank: 2 , image: image2, summary: 'SF 소설 창작 동아리', date: '2024-04-15' },
+    { id: 3, name: '삼성생명', rank: 3 , image: image3, summary: '금융 스터디 동아리', date: '2024-04-20' },
+    { id: 4, name: '뷰티대기업', rank: 4 , image: image4, summary: '뷰티 마케팅 동아리', date: '2024-04-12' },
+    { id: 5, name: '책 쓰기 프로젝트', rank: 5 , image: image5, summary: '작가 지망생 모임', date: '2024-04-25' },
+    { id: 6, name: '컴투스 글로벌 게임개발', rank: 6 , image: image6, summary: '게임 개발 동아리', date: '2024-04-18' },
+    { id: 7, name: '남원의 맛', rank: 7 , image: image7, summary: '전통 음식 연구 동아리', date: '2024-04-30' },
+    { id: 8, name: 'LG전자 베스트 샵 콘테스트', rank: 8 , image: image8, summary: '마케팅 공모전 동아리', date: '2024-04-22' }
   ];
 
   const Card = ({ club, img }: { club: any, img: any }) => {
+    // D-day 계산 함수
+    const calculateDday = (endDate: string) => {
+      const end = new Date(endDate);
+      const today = new Date();
+      const diff = end.getTime() - today.getTime();
+      const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      return diffDays;
+    };
+
     return (
       <article>
         <div className='relative flex w-[300px] h-[500px] border-2 p-4 border-gray-300 rounded'>
@@ -28,14 +45,13 @@ const AllClubCardSection = () => {
             </span>
           </a>
           <div className='absolute bottom-2 left-0 flex flex-col gap-1 p-2 w-full bg-white'>
-            {/* 동아리 남은 모집 날짜 */}
-            {/* <span>{club.date}</span> */}
-            <div className='w-fit inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-default text-default-foreground hover:bg-default/80'>D-10</div>
+            <div className='w-fit inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-default text-default-foreground hover:bg-default/80'>
+              D{calculateDday(club.date)}
+            </div>
             {/* 동아리 이름 */}
             <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.name}</h3>
             {/* 동아리 요약 */}
-            {/* <h4 className='text-xs'>{club.summary}</h4> */}
-            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>동아리 요약</span>
+            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.summary}</span>
           </div>
         </div>
         

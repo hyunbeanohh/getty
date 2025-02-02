@@ -12,16 +12,17 @@ interface Club {
   rank: number;
   image: string;
   description: string;
+  target: string;
 }
 
 const ClubRanking = () => {
   // 임시 동아리 데이터
   const clubData = [
-    { id: 1, name: '디프만', rank: 1 , image: Depromeet, description: '디프만은 디자이너와 프로그래머가 만났을 때를 의미합니다.' },
-    { id: 2, name: 'DDD', rank: 2 , image: DDD, description: 'DDD는 Developer Developer Developer의 약자입니다.' },
-    { id: 3, name: 'DND', rank: 3 , image: DND, description: 'DND는 개발자들의 네트워킹 동아리입니다.' },
-    { id: 4, name: 'YAPP', rank: 4 , image: YAPP, description: 'YAPP은 IT 연합 동아리입니다.' },
-    { id: 5, name: 'MashUP', rank: 5 , image: MashUP, description: 'MashUp은 IT 창업 연합 동아리입니다.' }
+    { id: 1, name: '디프만', rank: 1 , image: Depromeet, description: '디프만은 디자이너와 프로그래머가 만났을 때를 의미합니다.', target: 'https://www.depromeet.com' },
+    { id: 2, name: 'DDD', rank: 2 , image: DDD, description: 'DDD는 Developer Developer Developer의 약자입니다.', target: 'https://www.dddcommunity.org' },
+    { id: 3, name: 'DND', rank: 3 , image: DND, description: 'DND는 개발자들의 네트워킹 동아리입니다.', target: 'https://dnd.ac' },
+    { id: 4, name: 'YAPP', rank: 4 , image: YAPP, description: 'YAPP은 IT 연합 동아리입니다.', target: 'https://www.yapp.co.kr' },
+    { id: 5, name: 'MashUP', rank: 5 , image: MashUP, description: 'MashUp은 IT 창업 연합 동아리입니다.', target: 'https://mash-up.kr' }
       
   ];
   
@@ -29,11 +30,11 @@ const ClubRanking = () => {
     return (
       <article>
         <div className='relative flex w-[250px] h-[300px] border-2 p-4 border-gray-300 rounded'>
-          <a className='w-full h-full' href='javascript:;' onClick={()=>{
+          <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
             <span className='block w-full h-full'>
-              <img src={img} alt={club.name} className='w-full h-full object-fit'/>
+              <img src={img} alt={club.name} className='w-full h-[87%] object-fit'/>
               {/* 인기 동아리 */}
               
             </span>

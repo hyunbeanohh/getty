@@ -12,11 +12,11 @@ import MashUP from '@/assets/images/mashup.png';
 const NowApplyClub = () => {
 
   const slides = [
-    { image: Depromeet, target: "#", status: "모집중" },
-    { image: DND, target: "#", status: "모집중" },
-    { image: YAPP, target: "#", status: "마감" },
-    { image: DDD, target: "#", status: "모집중" },
-    { image: MashUP, target: "#", status: "마감" },
+    { image: Depromeet, target: "https://www.depromeet.com", status: "모집중" },
+    { image: DND, target: "https://dnd.ac", status: "모집중" },
+    { image: YAPP, target: "https://www.yapp.co.kr", status: "마감" },
+    { image: DDD, target: "https://www.dddcommunity.org", status: "모집중" },
+    { image: MashUP, target: "https://mash-up.kr", status: "마감" },
   ]
   
   const [animate, setAnimate] = useState(true);
@@ -27,7 +27,7 @@ const NowApplyClub = () => {
     <div className="wrapper w-[1500px] mt-5 mx-auto">
             <div className="overflow-hidden bg-white rounded-lg">
               <div className='flex justify-between items-center px-5 mb-5'>
-                <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>전체 동아리</span>
+                <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>모집 동아리</span>
                 
                 <select className='p-2 border rounded-md'>
                   <option value="최신순">전체</option>
@@ -49,6 +49,7 @@ const NowApplyClub = () => {
                             <li
                                 key={i}
                                 className="relative mx-20 cursor-pointer w-[200px] h-[200px] p-[1px]"
+                                onClick={() => window.open(s.target, '_blank')}
                             >
                                 <div className="absolute top-2 left-2 z-20">
                                     <span className={`px-3 py-1 rounded-full text-sm font-medium
@@ -74,6 +75,7 @@ const NowApplyClub = () => {
                             <li
                                 key={i}
                                 className={`relative mx-20 cursor-pointer w-[200px] h-[200px] p-[1px]`}
+                                onClick={() => window.open(s.target, '_blank')}
                             >
                                 <div className="absolute top-2 left-2 z-20">
                                     <span className={`px-3 py-1 rounded-full text-sm font-medium

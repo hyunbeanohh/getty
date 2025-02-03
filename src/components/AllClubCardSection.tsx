@@ -35,7 +35,7 @@ const AllClubCardSection = () => {
     return (
       <article>
         <div className='relative flex w-[300px] h-[500px] border-2 p-4 border-gray-300 rounded'>
-          <a className='w-full h-full' href='javascript:;' onClick={()=>{
+          <a className='w-full h-full' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
             <span className='block w-full h-full'>

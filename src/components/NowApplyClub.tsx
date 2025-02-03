@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import guideImage from '@/assets/images/guideImage.png';
 import Depromeet from '@/assets/images/Deproment.png';
 import DND from '@/assets/images/DND.png';
@@ -11,17 +11,43 @@ import MashUP from '@/assets/images/mashup.png';
 
 const NowApplyClub = () => {
 
-  const slides = [
-    { image: Depromeet, target: "https://www.depromeet.com", status: "모집중" },
-    { image: DND, target: "https://dnd.ac", status: "모집중" },
-    { image: YAPP, target: "https://www.yapp.co.kr", status: "마감" },
-    { image: DDD, target: "https://www.dddcommunity.org", status: "모집중" },
-    { image: MashUP, target: "https://mash-up.kr", status: "마감" },
-  ]
+    const slides = [
+        { id: 'depromeet', image: Depromeet, target: "https://www.depromeet.com", status: "마감" },
+        { id: 'dnd', image: DND, target: "https://dnd.ac", status: "마감" },
+        { id: 'yapp', image: YAPP, target: "https://www.yapp.co.kr", status: "마감" },
+        { id: 'ddd', image: DDD, target: "https://www.dddcommunity.org", status: "마감" },
+        { id: 'mashup', image: MashUP, target: "https://mash-up.kr", status: "마감" },
+    ]
   
+  const [clubStatus, setClubStatus] = useState<{[key: string]: any}>({});
   const [animate, setAnimate] = useState(true);
   const onStop = () => setAnimate(false);
   const onStart = () => setAnimate(true);
+
+  useEffect(() => {
+    const fetchClubStatus = async () => {
+      try {
+        const response = await fetch('/api/scrapeClubs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(slides.map(slide => ({
+            name: slide.id,
+            url: slide.target,
+            button_text: '지원' // 각 클럽의 버튼 텍스트에 맞게 수정
+          }))),
+        });
+        const data = await response.json();
+        setClubStatus(data);
+        console.log(data);
+      } catch (error) {
+        console.error('Error fetching club status:', error);
+      }
+    };
+
+    fetchClubStatus();
+  }, []);
 
   return (
     <div className="wrapper w-[1500px] mt-5 mx-auto">
@@ -53,8 +79,8 @@ const NowApplyClub = () => {
                             >
                                 <div className="absolute top-2 left-2 z-20">
                                     <span className={`px-3 py-1 rounded-full text-sm font-medium
-                                        ${s.status === "모집중" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
-                                        {s.status}
+                                        ${clubStatus[s.id]?.status === "ON" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
+                                        {clubStatus[s.id]?.status === "ON" ? "모집중" : "마감"}
                                     </span>
                                 </div>
                                 <div className="relative w-full h-full rounded-lg overflow-hidden hover:after:content-[''] hover:after:absolute hover:after:inset-0 hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg">
@@ -79,8 +105,8 @@ const NowApplyClub = () => {
                             >
                                 <div className="absolute top-2 left-2 z-20">
                                     <span className={`px-3 py-1 rounded-full text-sm font-medium
-                                        ${s.status === "모집중" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
-                                        {s.status}
+                                        ${clubStatus[s.id]?.status === "ON" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
+                                        {clubStatus[s.id]?.status === "ON" ? "모집중" : "마감"}
                                     </span>
                                 </div>
                                 <div

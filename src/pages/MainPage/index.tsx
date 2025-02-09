@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/Header"
 import SearchBar from "../../components/SearchBar"
 import NowApplyClub from "../../components/NowApplyClub"
-import ClubRanking from "../../components/ClubRanking"
+import PopularClub from "../../components/PopularClub"
 import AllClubCardSection from "../../components/AllClubCardSection"
 
 function MainPage() {
@@ -11,7 +11,7 @@ function MainPage() {
             <Header />
             <SearchBar />
             <NowApplyClub />
-            <ClubRanking/>
+            <PopularClub/>
             <AllClubCardSection/>
         </div>
     );

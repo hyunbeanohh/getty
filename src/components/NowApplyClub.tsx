@@ -18,7 +18,7 @@ const NowApplyClub = () => {
         { id: 'ddd', image: DDD, target: "https://www.dddcommunity.org", status: "마감" },
         { id: 'mashup', image: MashUP, target: "https://mash-up.kr", status: "마감" },
     ]
-  
+  const [loading, setLoading] = useState(false);
   const [clubStatus, setClubStatus] = useState<{[key: string]: any}>({});
   const [animate, setAnimate] = useState(true);
   const onStop = () => setAnimate(false);
@@ -40,13 +40,32 @@ const NowApplyClub = () => {
         });
         const data = await response.json();
         setClubStatus(data);
-        console.log(data);
       } catch (error) {
         console.error('Error fetching club status:', error);
+      } finally {
+        setLoading(true);
       }
     };
 
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      onStop(); // 스크롤 시 애니메이션 멈춤
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout); // 이전 타이머 클리어
+      }
+      scrollTimeout = setTimeout(onStart, 200); // 200ms 후 애니메이션 재개
+    };
+
+    window.addEventListener('scroll', handleScroll);
     fetchClubStatus();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll); // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout); // 타이머 클리어
+      }
+    };
   }, []);
 
   return (
@@ -55,11 +74,11 @@ const NowApplyClub = () => {
               <div className='flex justify-between items-center px-5 mb-5'>
                 <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>모집 동아리</span>
                 
-                <select className='p-2 border rounded-md'>
+                {/* <select className='p-2 border rounded-md'>
                   <option value="최신순">전체</option>
                   <option value="마감순">최신순</option>
                   <option value="">여유있는순</option>
-                </select>
+                </select> */}
               </div>
                 <ul
                     className="flex flex-nowrap w-[1200px] h-[220px] overflow-hidden mx-auto mb-10"
@@ -77,17 +96,20 @@ const NowApplyClub = () => {
                                 className="relative mx-20 cursor-pointer w-[200px] h-[200px] p-[1px]"
                                 onClick={() => window.open(s.target, '_blank')}
                             >
-                                <div className="absolute top-2 left-2 z-20">
+                              {loading && (
+                                <div className="absolute top-2 right-2 z-20">
                                     <span className={`px-3 py-1 rounded-full text-sm font-medium
                                         ${clubStatus[s.id]?.status === "ON" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
                                         {clubStatus[s.id]?.status === "ON" ? "모집중" : "마감"}
                                     </span>
                                 </div>
-                                <div className="relative w-full h-full rounded-lg overflow-hidden hover:after:content-[''] hover:after:absolute hover:after:inset-0 hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg">
+                              )}
+                                <div className="relative w-full h-[200px] rounded-lg overflow-hidden hover:after:content-[''] hover:after:absolute hover:after:inset-0 hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg">
                                     <div
                                         className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg border-2 border-gray-300"
-                                        style={{ backgroundImage: `url(${s.image})`, backgroundSize: 'contain' }}
-                                    ></div>
+                                    >
+                                      <img src={s.image} alt={s.id} className='w-full h-full object-fill'/>
+                                    </div>
                                 </div>
                             </li>
                         ))}
@@ -103,16 +125,21 @@ const NowApplyClub = () => {
                                 className={`relative mx-20 cursor-pointer w-[200px] h-[200px] p-[1px]`}
                                 onClick={() => window.open(s.target, '_blank')}
                             >
-                                <div className="absolute top-2 left-2 z-20">
+                              {loading && (
+                                <div className="absolute top-2 right-2 z-20">
                                     <span className={`px-3 py-1 rounded-full text-sm font-medium
                                         ${clubStatus[s.id]?.status === "ON" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
                                         {clubStatus[s.id]?.status === "ON" ? "모집중" : "마감"}
                                     </span>
                                 </div>
-                                <div
-                                    className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg border-2 border-gray-300"
-                                    style={{ backgroundImage: `url(${s.image})`, backgroundSize: 'contain' }}
-                                ></div>
+                              )}
+                                <div className="relative w-full h-[200px] rounded-lg overflow-hidden hover:after:content-[''] hover:after:absolute hover:after:inset-0 hover:after:w-full hover:after:h-full hover:after:bg-black/10 hover:after:rounded-lg">
+                                    <div
+                                        className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg border-2 border-gray-300"
+                                    >
+                                      <img src={s.image} alt={s.id} className='w-full h-full object-fill'/>
+                                    </div>
+                                </div>
                             </li>
                         ))}
                     </div>

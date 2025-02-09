@@ -1,12 +1,13 @@
-import React from 'react'
-import ClubApplicationStatus from './hooks/ClubApplicationStatus';
 import MainPage from './pages/MainPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <MainPage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+      </Routes>
+    </Router>
   );
 }
 

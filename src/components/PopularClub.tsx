@@ -45,8 +45,8 @@ const ClubRanking = () => {
   
   const Card = ({ club, img, clicks }: { club: Club, img: string, clicks: number }) => {
     return (
-      <article>
-        <div className='relative flex w-[200px] h-[300px] border-2 p-4 border-gray-300 rounded'>
+      <article className='w-[200px] h-[300px]'>
+        <div className='relative flex w-[200px] h-[300px] border-2 p-4 border-gray-300 rounded-lg'>
           <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
@@ -63,7 +63,7 @@ const ClubRanking = () => {
             <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.name}</h3>
             {/* 동아리 요약 */}
             <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.description}</span>
-            <div className='flex items-center justify-end opacity-[0.5]'>
+            <div className='flex items-center justify-end opacity-[0.5] rounded-lg'>
               <img src={eyeIcon} alt="eyeIcon" className='w-[25px] h-[25px] float-right' />
               <span className='text-xs font-semibold'>{clicks}</span>
               <img src={shareIcon} alt="shareIcon" className='w-[15px] h-[15px] float-right ml-2 mr-2' />
@@ -78,14 +78,14 @@ const ClubRanking = () => {
   return (
     <div>
       <div className='w-full h-full bg-white mx-auto mt-5 rounded-lg'>
-        <div className='w-full h-[200px] flex flex-col justify-center items-center mx-auto bg-black text-white text-center font-pretendard rounded-lg'>
+        <div className='bg-[#25292E] w-full h-[200px] flex flex-col justify-center items-center mx-auto text-white text-center font-pretendard rounded-lg'>
           <span className='text-lg font-semibold text-gray-300 mb-5'>{randomKadvice.author}</span>
           <span className='text-2xl font-semibold'>{randomKadvice.message}</span>
         </div>
 
         <div>
           <span className='relative text-lg block left-10 mt-10 mb-5 font-semibold font-pretendard'>인기 동아리</span>
-          <div className='flex flex-wrap justify-center gap-10 pb-10'>
+          <div className='grid grid-cols-5 justify-items-center gap-5 rounded-lg pb-5'>
             {/* 임시 동아리 데이터 연동 */}
             {clubData.map((club) => (
               <Card key={club.id}

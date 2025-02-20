@@ -5,6 +5,11 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import logging
+import redis
+from apscheduler.schedulers.background import BackgroundScheduler
+
+# Redis 클라이언트 설정
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용
@@ -12,6 +17,74 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
+def update_click_counts():
+    """Redis에서 클릭 수를 가져와서 데이터베이스에 업데이트하는 함수."""
+    logging.info("클릭 수 업데이트 시작")
+    try:
+        # club_urls.json 파일에서 클럽 이름을 가져오는 로직
+        with open('server/club_urls.json', 'r', encoding='utf-8') as f:
+            club_data = json.load(f)
+        
+        for club in club_data:
+            club_name = club['name']  # 클럽 이름 가져오기
+            current_clicks = redis_client.get(club_name)
+            if current_clicks is not None:
+                # 데이터베이스에 클릭 수 업데이트하는 로직
+                # 예: db.update_click_count(club_name, current_clicks)
+                logging.info(f"{club_name} 클릭 수 업데이트: {current_clicks}")
+    except Exception as e:
+        logging.error(f"클릭 수 업데이트 중 오류 발생: {e}")
+
+# 스케줄러 설정
+scheduler = BackgroundScheduler()
+scheduler.add_job(update_click_counts, 'interval', minutes=10)  # 5분 간격으로 실행
+scheduler.start()
+
+@app.route('/api/incrementClick', methods=['POST', 'OPTIONS'])
+def increment_click():
+    if request.method == 'OPTIONS':
+        return '', 200  # CORS preflight response
+    logging.info("POST /api/incrementClick 요청 받음")
+    try:
+        club_name = request.json.get('club_name')
+        if not club_name:
+            return jsonify({"error": "club_name is required"}), 400
+        
+        # Redis에서 클릭 수 증가
+        redis_client.incr(club_name)
+        current_clicks = redis_client.get(club_name)  # 현재 클릭 수 가져오기
+        
+        logging.info(f"{club_name} 클릭 수 증가: {current_clicks}")
+        return jsonify({"club_name": club_name, "clicks": current_clicks})
+        
+    except Exception as e:
+        logging.error(f"Error in increment_click: {e}")
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/getClickCount', methods=['GET', 'OPTIONS'])
+def get_click_count():
+    if request.method == 'OPTIONS':
+        return '', 200  # CORS preflight response
+    logging.info("GET /api/getClickCount 요청 받음")
+    try:
+        club_name = request.args.get('club_name')
+        if not club_name:
+            return jsonify({"error": "club_name is required"}), 400
+        
+        # Redis에서 클릭 수 가져오기
+        current_clicks = redis_client.get(club_name)
+        
+        if current_clicks is None:
+            current_clicks = 0  # 클릭 수가 없으면 0으로 설정
+        
+        logging.info(f"{club_name} 클릭 수: {current_clicks}")
+        return jsonify({"club_name": club_name, "clicks": current_clicks})
+        
+    except Exception as e:
+        logging.error(f"Error in get_click_count: {e}")
+        return jsonify({"error": str(e)}), 500
+    
 @app.route('/api/getClubUrls', methods=['GET', 'OPTIONS'])
 def get_club_urls():
     if request.method == 'OPTIONS':

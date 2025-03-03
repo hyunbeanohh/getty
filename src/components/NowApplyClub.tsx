@@ -125,13 +125,13 @@ const NowApplyClub = () => {
           style={animationStyle}
         >
           <div
-            className="flex items-center flex-nowrap relative mb-5 animate-infinite1-reverse will-change-transform"
+            className="flex items-center flex-nowrap relative mb-5 animate-infinite1 will-change-transform"
             style={{ animationPlayState: 'var(--animation-play-state)' }}
           >
             {renderSlideItems(slides)}
           </div>
           <div
-            className="flex items-center flex-nowrap relative mb-5 animate-infinite2-reverse will-change-transform"
+            className="flex items-center flex-nowrap relative mb-5 animate-infinite2 will-change-transform"
             style={{ animationPlayState: 'var(--animation-play-state)' }}
           >
             {renderSlideItems(slides)}

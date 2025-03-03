@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- 원형 배경 -->
+  <circle cx="100" cy="100" r="80" fill="#3498db" />
+  
+  <!-- 중앙 아이콘 - 간단한 추상 모양 -->
+  <path d="M70 80 L100 50 L130 80 L130 120 L100 150 L70 120 Z" fill="white" />
+  
+  <!-- 작은 장식 요소 -->
+  <circle cx="100" cy="100" r="15" fill="#2980b9" />
+  
+  <!-- 주변 장식 요소들 -->
+  <circle cx="60" cy="60" r="8" fill="#ecf0f1" opacity="0.7" />
+  <circle cx="140" cy="60" r="8" fill="#ecf0f1" opacity="0.7" />
+  <circle cx="60" cy="140" r="8" fill="#ecf0f1" opacity="0.7" />
+  <circle cx="140" cy="140" r="8" fill="#ecf0f1" opacity="0.7" />
+</svg>

@@ -4,6 +4,7 @@ import SearchBar from "../../components/SearchBar"
 import NowApplyClub from "../../components/NowApplyClub"
 import PopularClub from "../../components/PopularClub"
 import AllClubCardSection from "../../components/AllClubCardSection"
+import HireITInfo from "../../components/hireITinfo"
 
 function MainPage() {
     return (
@@ -12,7 +13,7 @@ function MainPage() {
             <SearchBar />
             <NowApplyClub />
             <PopularClub/>
-            <AllClubCardSection/>
+            <HireITInfo/>
         </div>
     );
 }

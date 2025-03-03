@@ -122,7 +122,7 @@ def extract_status(soup, club):
                 break
     
     # 특정 키워드가 발견되면 상태를 OFF로 강제 변경
-    if found_text and any(keyword in found_text.lower() for keyword in ['마감', '종료', '완료', '지난','만나요!','마감되었습니다.']):
+    if found_text and any(keyword in found_text.lower() for keyword in ['마감', '종료', '완료', '지난','만나요!','마감되었습니다.','아닙니다','모집 종료']):
         status = 'OFF'
     return status, found_text
 

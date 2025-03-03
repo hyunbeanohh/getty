@@ -125,7 +125,6 @@ const ClubRanking = () => {
               <Card key={club.id}
                     club={club} 
                     img={club.image}
-                    clicks={club.clicks}
               />
             ))}
           </div>

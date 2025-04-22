@@ -1,4 +1,5 @@
-# 동아리 모집 정보 모니터링 서비스
+## Get It Club Information (getty)
+🎉IT 동아리를 알아보기 위해 귀찮게 검색하지말고 한번에 홈페이지로 보자!
 
 ## 프로젝트 소개
 대학생 개발 동아리들의 모집 정보를 실시간으로 모니터링하고, 모집 상태를 한눈에 확인할 수 있는 서비스입니다.
@@ -20,11 +21,6 @@
   - FastAPI (또는 Flask)
   - Selenium/BeautifulSoup (웹 스크래핑)
   - JSON 데이터 관리
-
-## 프로젝트 구조
-
-## Get It Club Information (getty)
-🎉IT 동아리를 알아보기 위해 귀찮게 검색하지말고 한번에 홈페이지로 보자!
 
 ## 개발 환경
 - **JavaScript Framework**: React 18+

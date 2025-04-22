@@ -9,17 +9,28 @@ import MashUP from '@/assets/images/mashup.png';
 // import NEXTERS from '@/assets/images/NEXTERS.png';
 // import Prography from '@/assets/images/Prography.png';
 
+interface ClubStatus {
+  status: 'ON' | 'OFF';
+}
+
+interface ClubSlide {
+  id: string;
+  image: string;
+  target: string;
+  status: 'ON' | 'OFF';
+}
+
 const NowApplyClub = () => {
 
-  const slides = [
-      { id: 'depromeet', image: Depromeet, target: "https://www.depromeet.com", status: "마감" },
-      { id: 'dnd', image: DND, target: "https://dnd.ac", status: "마감" },
-      { id: 'yapp', image: YAPP, target: "https://www.yapp.co.kr", status: "마감" },
-      { id: 'ddd', image: DDD, target: "https://www.dddcommunity.org", status: "마감" },
-      { id: 'mashup', image: MashUP, target: "https://recruit.mash-up.kr/recruit/web", status: "마감" },
+  const slides: ClubSlide[] = [
+      { id: 'depromeet', image: Depromeet, target: "https://www.depromeet.com", status: "OFF" },
+      { id: 'dnd', image: DND, target: "https://dnd.ac", status: "OFF" },
+      { id: 'yapp', image: YAPP, target: "https://www.yapp.co.kr", status: "OFF" },
+      { id: 'ddd', image: DDD, target: "https://www.dddcommunity.org", status: "OFF" },
+      { id: 'mashup', image: MashUP, target: "https://recruit.mash-up.kr/recruit/web", status: "OFF" },
   ]
   const [loading, setLoading] = useState(false);
-  const [clubStatus, setClubStatus] = useState<{[key: string]: any}>({});
+  const [clubStatus, setClubStatus] = useState<{[key: string]: ClubStatus}>({});
   const [animate, setAnimate] = useState(true);
   const onStop = () => setAnimate(false);
   const onStart = () => setAnimate(true);
@@ -36,7 +47,7 @@ const NowApplyClub = () => {
           <div className="absolute top-2 right-2 z-20">
             <span className={`px-3 py-1 rounded-full text-sm font-medium
               ${clubStatus[s.id]?.status === "ON" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"}`}>
-              {clubStatus[s.id]?.status === "ON" ? "모집중" : "마감"}
+              {clubStatus[s.id]?.status === "ON" ? "ON" : "OFF"}
             </span>
           </div>
         )}

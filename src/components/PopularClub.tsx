@@ -118,7 +118,7 @@ const ClubRanking = () => {
         </div>
 
         <div>
-          <span className='relative text-lg block left-10 mt-10 mb-5 font-semibold font-pretendard'>인기 동아리</span>
+          <span className='relative text-lg block left-10 mt-10 mb-5 font-semibold font-pretendard'>전체 동아리</span>
           <div className='grid grid-cols-5 justify-items-center gap-5 rounded-lg pb-5'>
             {/* 임시 동아리 데이터 연동 */}
             {clubData.map((club) => (

@@ -42,7 +42,7 @@ const NowApplyClub = () => {
       <div className="overflow-hidden bg-white rounded-lg">
         <div className='flex justify-between items-center px-5 mb-5'>
           <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>
-            모집 동아리
+            인기 동아리
           </span>
         </div>
         <ClubSlideList

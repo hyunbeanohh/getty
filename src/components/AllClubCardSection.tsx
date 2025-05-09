@@ -9,17 +9,6 @@ import image8 from '@/assets/images/image8.png';
 
 const AllClubCardSection = () => {
 
-  const clubData = [
-    { id: 1, name: '같이에듀', rank: 1 , image: image1, summary: '교육 봉사 동아리', date: '2024-04-10' },
-    { id: 2, name: 'SF AWARD', rank: 2 , image: image2, summary: 'SF 소설 창작 동아리', date: '2024-04-15' },
-    { id: 3, name: '삼성생명', rank: 3 , image: image3, summary: '금융 스터디 동아리', date: '2024-04-20' },
-    { id: 4, name: '뷰티대기업', rank: 4 , image: image4, summary: '뷰티 마케팅 동아리', date: '2024-04-12' },
-    { id: 5, name: '책 쓰기 프로젝트', rank: 5 , image: image5, summary: '작가 지망생 모임', date: '2024-04-25' },
-    { id: 6, name: '컴투스 글로벌 게임개발', rank: 6 , image: image6, summary: '게임 개발 동아리', date: '2024-04-18' },
-    { id: 7, name: '남원의 맛', rank: 7 , image: image7, summary: '전통 음식 연구 동아리', date: '2024-04-30' },
-    { id: 8, name: 'LG전자 베스트 샵 콘테스트', rank: 8 , image: image8, summary: '마케팅 공모전 동아리', date: '2024-04-22' }
-  ];
-
   const Card = ({ club, img }: { club: any, img: any }) => {
     // D-day 계산 함수
     const calculateDday = (endDate: string) => {
@@ -68,17 +57,6 @@ const AllClubCardSection = () => {
                   <option value="여유있는순">여유있는순</option>
                 </select>
             </div>
-
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 justify-items-center'>
-            {/* 임시 동아리 데이터 연동 */}
-            {clubData.map((club) => (
-              <Card key={club.id}
-                    club={club} 
-                    img={club.image}
-              />
-            ))}
-          </div>
-
         </div>
     </div>
   )

@@ -23,7 +23,7 @@ interface Club {
   target: string;
 }
 
-const ClubRanking = () => {
+const AllClub = () => {
 
   // kadvice 데이터 연동
   const kadviceData = kadvice.getAll();
@@ -134,4 +134,4 @@ const ClubRanking = () => {
   )
 }
 
-export default ClubRanking
+export default AllClub;

@@ -3,7 +3,7 @@ import { CLUBS } from '@/components/club/constant';
 import { useClubStatus } from '@/components/club/hook/useClubStatus';
 import ClubSlideList from './club/ClubSlideList';
 
-const NowApplyClub = () => {
+const PopularClub = () => {
 
   const [animate, setAnimate] = useState(true);
   const onStop = () => setAnimate(false);
@@ -57,4 +57,4 @@ const NowApplyClub = () => {
   );
 };
 
-export default NowApplyClub;
+export default PopularClub;

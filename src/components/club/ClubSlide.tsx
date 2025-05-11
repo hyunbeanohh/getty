@@ -12,7 +12,7 @@ const ClubSlide = ({ club, loading, onClick }: ClubSlideProps) => {
       onClick={handleClick}
     >
       {loading && <ClubStatusBadge status={club.status} />}
-      <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
+      <div className="relative w-full h-[200px] rounded-lg overflow-hidden flex-shrink-0">
         <div className="w-full h-full bg-cover bg-center bg-no-repeat rounded-lg border-2 border-gray-300 transition-all duration-200 hover:border-blue-500">
           <img 
             src={club.image} 

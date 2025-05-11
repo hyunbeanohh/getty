@@ -1,27 +1,31 @@
 import { ClubSlideListProps } from '@/components/club/types';
 import ClubSlide from './ClubSlide';
+import { motion } from 'framer-motion';
 
-const ClubSlideList = ({ clubs, loading, animate, onStop, onStart }: ClubSlideListProps) => {
+const ClubSlideList = ({ clubs, loading, onStop, onStart }: ClubSlideListProps) => {
+  
   const handleSlideClick = (target: string) => {
     window.open(target, '_blank');
   };
 
-  const animationStyle = {
-    '--animation-play-state': animate ? 'running' : 'paused'
-  } as React.CSSProperties;
+  const duplicateClubs = [...clubs, ...clubs];
 
   return (
     <ul
       className="flex flex-nowrap w-[1200px] h-[220px] overflow-hidden mx-auto mb-10"
       onMouseEnter={onStop}
       onMouseLeave={onStart}
-      style={animationStyle}
     >
-      <div
-        className="flex items-center flex-nowrap relative mb-5 animate-infinite1 will-change-transform"
-        style={{ animationPlayState: 'var(--animation-play-state)' }}
+      <motion.div
+        className="flex items-center flex-nowrap relative mb-5"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{
+          duration: 20,
+          ease: 'linear',
+          repeat: Infinity,
+        }}
       >
-        {clubs.map((club, index) => (
+        {duplicateClubs.map((club, index) => (
           <ClubSlide
             key={`${club.id}-${index}`}
             club={club}
@@ -29,12 +33,19 @@ const ClubSlideList = ({ clubs, loading, animate, onStop, onStart }: ClubSlideLi
             onClick={handleSlideClick}
           />
         ))}
-      </div>
-      <div
-        className="flex items-center flex-nowrap relative mb-5 animate-infinite2 will-change-transform"
-        style={{ animationPlayState: 'var(--animation-play-state)' }}
+      </motion.div>
+      <motion.div
+        className="flex items-center flex-nowrap relative mb-5"
+        animate={{
+          x: ["0%",  "-100%"]
+        }}
+        transition={{
+          duration: 20,
+          ease: 'linear',
+          repeat: Infinity,
+        }}
       >
-        {clubs.map((club, index) => (
+        {duplicateClubs.map((club, index) => (
           <ClubSlide
             key={`${club.id}-${index}-clone`}
             club={club}
@@ -42,7 +53,7 @@ const ClubSlideList = ({ clubs, loading, animate, onStop, onStart }: ClubSlideLi
             onClick={handleSlideClick}
           />
         ))}
-      </div>
+      </motion.div>
     </ul>
   );
 };

@@ -20,8 +20,6 @@ const Header = () => {
         >
             IT 뉴스
         </a>
-        <div className='text-lg mr-5 text-white hover:text-yellow-400 cursor-pointer'>동아리</div>
-        <div className='text-lg mr-5 text-white hover:text-yellow-400 cursor-pointer'>스터디</div>
         <div className='text-lg mr-5 text-white hover:text-yellow-400 cursor-pointer'>모집 요청</div>
       </div>
     </div>

@@ -20,34 +20,15 @@ const ClubSlideList = ({ clubs, loading, onStop, onStart }: ClubSlideListProps) 
         className="flex items-center flex-nowrap relative mb-5"
         animate={{ x: ['0%', '-50%'] }}
         transition={{
-          duration: 20,
+          duration: 30,
           ease: 'linear',
           repeat: Infinity,
+          repeatType: 'loop',
         }}
       >
         {duplicateClubs.map((club, index) => (
           <ClubSlide
             key={`${club.id}-${index}`}
-            club={club}
-            loading={loading}
-            onClick={handleSlideClick}
-          />
-        ))}
-      </motion.div>
-      <motion.div
-        className="flex items-center flex-nowrap relative mb-5"
-        animate={{
-          x: ["0%",  "-100%"]
-        }}
-        transition={{
-          duration: 20,
-          ease: 'linear',
-          repeat: Infinity,
-        }}
-      >
-        {duplicateClubs.map((club, index) => (
-          <ClubSlide
-            key={`${club.id}-${index}-clone`}
             club={club}
             loading={loading}
             onClick={handleSlideClick}

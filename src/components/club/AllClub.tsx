@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FiEye } from 'react-icons/fi';
 import { CiShare2 } from 'react-icons/ci';
 import { kadvice } from 'kadvice';
-import { clubData, Club } from '@/data/clubData';
+import { clubData, Club, tagColors } from '@/data/clubData';
 
 
 const AllClub = () => {
@@ -45,18 +45,39 @@ const AllClub = () => {
     useEffect(() => {
       fetchClickCount();
     }, [club.name]);
+
+    const displayPositionBadge = (positions: string[]) => {
+        if (!positions || positions.length === 0) return null;
+        
+        return (
+            <div className="flex flex-wrap gap-1">
+                {positions.map((position, index) => {
+                    const colorStyle = tagColors[position as keyof typeof tagColors] || { bg: "bg-gray-100", text: "text-gray-600" };
+                    return (
+                        <div 
+                            key={index}
+                            className={`inline-block px-2 py-1 text-xs rounded-full ${colorStyle.bg} ${colorStyle.text}`}
+                        >
+                            {position}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    };
     
     return (
-      <article className='w-[200px] h-[350px]' onClick={handleClick}>
+      <article className='w-[250px] h-[350px]' onClick={handleClick}>
         <div className='relative flex w-full h-full border-2 p-4 border-gray-300 rounded-lg'>
           <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
             <span className='block w-full h-full'>
-              <img src={img} alt={club.name} className='w-full h-[50%] object-fill rounded-lg'/>
+              <img src={img} alt={club.name} className='w-full h-[50%] object-fill rounded-lg relative bottom-[10px]'/>
             </span>
           </a>
           <div className='absolute bottom-2 left-0 flex flex-col p-[10px_5px_5px_5px] w-full bg-white'>
+            {displayPositionBadge(club.positions)}
             <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-black'>{club.name}</h3>
             <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.description}</span>
             <div className='flex items-center justify-between opacity-[0.5] px-2 py-2 border-t border-gray-200 relative top-[10px]'>

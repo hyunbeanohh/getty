@@ -1,9 +1,6 @@
 import React from "react";
 import Header from "../../components/Header"
-import SearchBar from "../../components/SearchBar"
-import AllClub from "../../components/AllClub"
-import AllClubCardSection from "../../components/AllClubCardSection"
-import HireITInfo from "../../components/hireITinfo"
+import AllClub from "../../components/club/AllClub"
 import PopularClub from "../../components/club/PopularClub"
 function MainPage() {
     return (

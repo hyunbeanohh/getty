@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CLUBS } from '@/components/club/constant';
+import { CLUBS } from '@/data/popularClubData';
 import { useClubStatus } from '@/components/club/hook/useClubStatus';
 import ClubSlideList from './ClubSlideList';
 

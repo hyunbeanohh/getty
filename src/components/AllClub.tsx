@@ -10,8 +10,8 @@ import NEXTERS from '@/assets/images/Nexters.jpg';
 import Prography from '@/assets/images/Prography.png';
 import Programming from '@/assets/images/Programming.jpg';
 import AUGS from '@/assets/images/Augs.png';
-import eyeIcon from '@/assets/icon/eye-icon.png';
-import shareIcon from '@/assets/icon/share.png';
+import { FiEye } from 'react-icons/fi';
+import { CiShare2 } from 'react-icons/ci';
 import { kadvice } from 'kadvice';
 
 interface Club {
@@ -29,8 +29,7 @@ const AllClub = () => {
   const kadviceData = kadvice.getAll();
   const randomIndex = Math.floor(Math.random() * kadviceData.length);
   const randomKadvice = kadviceData[randomIndex];
-  
-  // 임시 동아리 데이터
+
   const clubData = [
     { id: 1, name: '디프만', image: Depromeet, description: '디프만은 디자이너와 프로그래머가 만났을 때의 줄임말로, 서비스 기획부터 론칭과 개선까지 다양한 경험을 합니다.', target: 'https://www.depromeet.com' },
     { id: 2, name: 'DDD', image: DDD, description: 'DDD는 개발자와 디자이너가 함께 사이드 프로젝트를 진행하며 서로의 이해와 친목을 쌓는 기회를 제공합니다.', target: 'https://dddset.notion.site/DDD-7b73ca41b67c4658b292a4662581ee01' },
@@ -79,28 +78,24 @@ const AllClub = () => {
     }, [club.name]);
     
     return (
-      <article className='w-[200px] h-[300px]' onClick={handleClick}>
-        <div className='relative flex w-[200px] h-[300px] border-2 p-4 border-gray-300 rounded-lg'>
+      <article className='w-[200px] h-[350px]' onClick={handleClick}>
+        <div className='relative flex w-full h-full border-2 p-4 border-gray-300 rounded-lg'>
           <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank' onClick={()=>{
             {/* 동아리 상세 페이지로 이동 */}
           }}>
             <span className='block w-full h-full'>
-              <img src={img} alt={club.name} className='w-full h-[50%] object-fill'/>
-              {/* 인기 동아리 */}
-              
+              <img src={img} alt={club.name} className='w-full h-[50%] object-fill rounded-lg'/>
             </span>
           </a>
           <div className='absolute bottom-2 left-0 flex flex-col p-[10px_5px_5px_5px] w-full bg-white'>
-            {/* 동아리 남은 모집 날짜 */}
-            {/* <span>{club.date}</span> */}
-            {/* 동아리 이름 */}
-            <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.name}</h3>
-            {/* 동아리 요약 */}
+            <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-black'>{club.name}</h3>
             <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.description}</span>
-            <div className='flex items-center justify-end opacity-[0.5] rounded-lg'>
-              <img src={eyeIcon} alt="eyeIcon" className='w-[25px] h-[25px] float-right' />
-              <span className='text-xs font-semibold'>{clicks}</span>
-              <img src={shareIcon} alt="shareIcon" className='w-[15px] h-[15px] float-right ml-2 mr-2' />
+            <div className='flex items-center justify-between opacity-[0.5] px-2 py-2 border-t border-gray-200 relative top-[10px]'>
+              <div className='flex items-center'>
+                <FiEye className='w-[15px] h-[15px]'/>
+                <span className='text-xs font-semibold ml-1'>{clicks}</span>
+              </div>
+              <CiShare2 className='w-[15px] h-[15px]' />
             </div>
           </div>
         </div>

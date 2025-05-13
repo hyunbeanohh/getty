@@ -68,21 +68,19 @@ const AllClub = () => {
     
     return (
       <article className='w-[250px] h-[380px]' onClick={handleClick}>
-        <div className='relative flex w-full h-full border-2 p-4 border-gray-300 rounded-lg'>
-          <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank' onClick={()=>{
-            {/* 동아리 상세 페이지로 이동 */}
-          }}>
-            <span className='block w-full h-full'>
+        <div className='relative flex flex-col w-full h-full border-2 p-4 border-gray-300 rounded-lg bg-white'>
+          <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank'>
+            <div className='block w-full h-full'>
               <img src={img} alt={club.name} className='w-full h-[50%] object-fill rounded-lg relative bottom-[10px]'/>
               <div className='min-h-[20px] flex flex-wrap gap-1 mb-2'>
                 {displayPositionBadge(club.positions)}
               </div>
-            </span>
+            </div>
           </a>
           <div className='absolute bottom-2 left-0 flex flex-col p-[10px_5px_5px_5px] w-full bg-white'>
-            <h3 className='inline-flex items-center px-2.5 py-0.5 text-xs font-black'>{club.name}</h3>
-            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold'>{club.description}</span>
-            <div className='flex items-center justify-between opacity-[0.5] px-2 py-2 border-t border-gray-200 relative top-[10px]'>
+            <h3 className='inline-flex items-center px-2.5 py-0.5 text-sm font-black min-h-[24px]'>{club.name}</h3>
+            <span className='inline-flex items-center px-2.5 py-0.5 text-xs font-semibold min-h-[52px] line-clamp-3'>{club.description}</span>
+            <div className='flex items-center justify-between opacity-[0.5] px-2 py-2 border-t border-gray-200 relative top-[10px] mt-auto'>
               <div className='flex items-center'>
                 <FiEye className='w-[15px] h-[15px]'/>
                 <span className='text-xs font-semibold ml-1'>{clicks}</span>

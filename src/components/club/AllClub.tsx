@@ -67,7 +67,7 @@ const AllClub = () => {
     };
     
     return (
-      <article className='w-[250px] h-[380px]' onClick={handleClick}>
+      <article className='w-[250px] h-[380px] transition-all duration-300 hover:scale-105 hover:shadow-lg' onClick={handleClick}>
         <div className='relative flex flex-col w-full h-full border-2 p-4 border-gray-300 rounded-lg bg-white'>
           <a className='w-full h-full' href={club.target} rel='noopener noreferrer' target='_blank'>
             <div className='block w-full h-full'>

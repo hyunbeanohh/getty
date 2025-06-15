@@ -38,7 +38,7 @@ export const clubData: Club[] = [
     image: Depromeet,
     description: '디프만은 디자이너와 프로그래머가 만났을 때의 줄임말로, 서비스 기획부터 론칭과 개선까지 다양한 경험을 합니다.',
     target: 'https://www.depromeet.com',
-    positions: ['프론트엔드', '백엔드', '기획자', '디자이너', '안드로이드' ,'IOS']
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS']
   },
   {
     id: 2,
@@ -62,7 +62,7 @@ export const clubData: Club[] = [
     image: YAPP,
     description: 'YAPP은 대학생들의 다양한 아이디어와 열정으로 새로운 가치를 만드는 기업형 IT 동아리입니다.',
     target: 'https://www.yapp.co.kr',
-    positions: ['프론트엔드', '백엔드', '기획자', '디자이너']
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자']
   },
   {
     id: 5,
@@ -78,7 +78,7 @@ export const clubData: Club[] = [
     image: SOPT,
     description: 'SOPT는 IT와 벤처창업에 뜻이 있는 대학생들이 모인 연합 IT벤처창업 동아리입니다.',
     target: 'https://www.sopt.org',
-    positions: ['프론트엔드', '백엔드', '기획자', '디자이너', '안드로이드' ,'IOS']
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS']
   },
   {
     id: 7,

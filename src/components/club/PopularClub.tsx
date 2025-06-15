@@ -38,9 +38,9 @@ const PopularClub = () => {
   }, [animate, onStop, onStart]);
 
   return (
-    <div className="wrapper w-[1500px] mt-5 mx-auto">
-      <div className="overflow-hidden bg-white rounded-lg">
-        <div className='flex justify-between items-center px-5 mb-5'>
+    <div className="wrapper w-[1000px] mt-5 mx-auto">
+      <div className="overflow-hidden bg-white rounded-lg h-[300px]">
+        <div className='flex justify-between items-center px-5 mb-1'>
           <span className='relative text-lg block left-5 mt-3 mb-5 font-semibold font-pretendard'>
             인기 동아리
           </span>

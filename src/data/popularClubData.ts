@@ -1,4 +1,4 @@
-import { Club } from '@/components/club/types';
+import { Club } from '@/types/types';
 import Depromeet from '@/assets/images/Deproment.png';
 import DND from '@/assets/images/DND.png';
 import YAPP from '@/assets/images/YAPP.png';

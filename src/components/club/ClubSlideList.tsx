@@ -1,11 +1,9 @@
-import { ClubSlideListProps } from '@/components/club/types';
+import { ClubSlideListProps } from '@/types/types';
 import ClubSlide from './ClubSlide';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 const ClubSlideList = ({ clubs, loading }: ClubSlideListProps) => {
   
@@ -15,7 +13,7 @@ const ClubSlideList = ({ clubs, loading }: ClubSlideListProps) => {
 
   return (
     <Swiper
-      modules={[Navigation, Pagination, Autoplay]} // 네비게이션,페이지네이션,자동재생 모듈 추가
+      modules={[Navigation, Autoplay]} // 네비게이션,페이지네이션,자동재생 모듈 추가
       slidesPerView={1} // 한 번에 보여지는 슬라이드 개수
       loop={true} // 무한 반복
       autoplay={{ delay: 3000, disableOnInteraction: false }} // 자동재생 지연시간, 상호작용 시 자동재생 멈춤 여부

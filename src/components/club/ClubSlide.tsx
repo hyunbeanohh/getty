@@ -1,4 +1,4 @@
-import { ClubSlideProps } from '@/components/club/types';
+import { ClubSlideProps } from '@/types/types';
 import ClubStatusBadge from './ClubStatusBadge';
 
 const ClubSlide = ({ club, loading, onClick }: ClubSlideProps) => {

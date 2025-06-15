@@ -1,15 +1,12 @@
 import { FiEye } from 'react-icons/fi';
 import { CiShare2 } from 'react-icons/ci';
-import { kadvice } from 'kadvice';
 import { clubData, Club, tagColors } from '@/data/clubData';
 import { useClubClick } from '@/hooks/useClubClick';
+import Kadvice from '../Kadvice';
+import ClubListView from './ClubListView';
 
 const AllClub = () => {
 
-  // kadvice 데이터 연동
-  const kadviceData = kadvice.getAll();
-  const randomIndex = Math.floor(Math.random() * kadviceData.length);
-  const randomKadvice = kadviceData[randomIndex];
 
   const Card = ({ club, img }: { club: Club, img: string }) => {
     const { clicks, handleClick } = useClubClick({ clubName: club.name });
@@ -65,11 +62,7 @@ const AllClub = () => {
   return (
     <div>
       <div className='w-full h-full bg-white mx-auto mt-5 rounded-lg'>
-        <div className='bg-[#25292E] w-full h-[200px] flex flex-col justify-center items-center mx-auto text-white text-center font-pretendard rounded-lg'>
-          <span className='text-lg font-semibold text-gray-300 mb-5'>{randomKadvice.author}</span>
-          <span className='text-2xl font-semibold'>{randomKadvice.message}</span>
-        </div>
-
+        <Kadvice />
         <div>
           <span className='relative text-lg block left-10 mt-10 mb-5 font-semibold font-pretendard'>전체 동아리</span>
           <div className='grid grid-cols-5 justify-items-center gap-5 rounded-lg pb-5'>

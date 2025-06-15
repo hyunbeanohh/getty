@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ClubStatusMap } from '../types';
+import { ClubStatusMap } from '../../../types/types';
 
 export const useClubStatus = (clubs: { id: string; target: string }[]) => {
   const [loading, setLoading] = useState(false);

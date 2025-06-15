@@ -1,4 +1,4 @@
-import { ClubStatusBadgeProps } from '@/components/club/types';
+import { ClubStatusBadgeProps } from '@/types/types';
 
 const ClubStatusBadge = ({ status, className = '' }: ClubStatusBadgeProps) => {
   const statusClasses = {

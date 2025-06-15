@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
 import { FiEye } from 'react-icons/fi';
 import { CiShare2 } from 'react-icons/ci';
 import { kadvice } from 'kadvice';
 import { clubData, Club, tagColors } from '@/data/clubData';
-
+import { useClubClick } from '@/hooks/useClubClick';
 
 const AllClub = () => {
 
@@ -13,38 +12,7 @@ const AllClub = () => {
   const randomKadvice = kadviceData[randomIndex];
 
   const Card = ({ club, img }: { club: Club, img: string }) => {
-
-    const [clicks, setClicks] = useState(0);
-
-    const handleClick = async () => {
-      try {
-        const response = await fetch('/api/incrementClick', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ club_name: club.name }),
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to increment click');
-        }
-      } catch (error) {
-        console.error('Error incrementing click:', error);
-      }
-    }
-
-    const fetchClickCount = async () => {
-      const response = await fetch(`/api/getClickCount?club_name=${club.name}`);
-      const data = await response.json();
-      if (response.ok) {
-        setClicks(data.clicks);
-      }
-    };
-  
-    useEffect(() => {
-      fetchClickCount();
-    }, [club.name]);
+    const { clicks, handleClick } = useClubClick({ clubName: club.name });
 
     const displayPositionBadge = (positions: string[]) => {
         if (!positions || positions.length === 0) return null;

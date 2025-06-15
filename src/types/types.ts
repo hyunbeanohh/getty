@@ -32,3 +32,7 @@ export interface ClubSlideListProps {
   onStop: () => void;
   onStart: () => void;
 }
+
+export interface UseClubClickProps {
+  clubName: string;
+}

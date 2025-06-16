@@ -4,7 +4,7 @@ import AllClub from "../../components/club/AllClub"
 import PopularClub from "../../components/club/PopularClub"
 function MainPage() {
     return (
-        <div className="w-full h-full bg-gray-100">
+        <div className="w-full h-full">
             <Header />
             <PopularClub />
             <AllClub />

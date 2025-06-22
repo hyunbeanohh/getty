@@ -2,7 +2,7 @@ import Depromeet from '@/assets/images/Deproment.png';
 import DND from '@/assets/images/Dnd.png';
 import YAPP from '@/assets/images/Yapp.png';
 import DDD from '@/assets/images/DDD.png';
-import MashUP from '@/assets/images/Mashup.png';
+import MashUP from '@/assets/images/MashUP.png';
 import SOPT from '@/assets/images/Sopt.png';
 import NEXTERS from '@/assets/images/Nexters.jpg';
 import Prography from '@/assets/images/Prography.png';

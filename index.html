@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+    <!-- 기본 메타 태그 -->
+    <title>Getty - IT 동아리 모집 현황</title>
+    <meta name="description" content="대학생 IT 동아리들의 모집 현황을 한눈에 확인하세요. 디프만, SOPT, YAPP 등 주요 IT 동아리의 모집 상태와 지원 정보를 실시간으로 제공합니다.">
+    <meta name="keywords" content="IT동아리, 대학생동아리, 프로그래밍동아리, 개발동아리, 디프만, SOPT, YAPP, 모집현황, 지원하기">
+    <meta name="author" content="Getty">
+    
+    <!-- Open Graph (소셜 미디어 공유용) -->
+    <meta property="og:title" content="Getty - IT 동아리 모집 현황">
+    <meta property="og:description" content="대학생 IT 동아리들의 모집 현황을 한눈에 확인하세요. 실시간 모집 상태와 지원 정보를 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.vercel.app">
+    <meta property="og:image" content="https://your-domain.vercel.app/og-image.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Getty - IT 동아리 모집 현황">
+    <meta name="twitter:description" content="대학생 IT 동아리들의 모집 현황을 한눈에 확인하세요.">
+    <meta name="twitter:image" content="https://your-domain.vercel.app/og-image.png">
+    
+    <!-- 추가 SEO 메타 태그 -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Korean">
+    <meta name="revisit-after" content="1 days">
+    <meta name="distribution" content="global">
+    
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- 구조화된 데이터 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Getty",
+      "description": "IT 동아리 모집 현황 확인 서비스",
+      "url": "https://your-domain.vercel.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://your-domain.vercel.app?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 <body>
-    <div id ="root"></div>
+    <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
 </body>
 </html>

@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
+// API URL 설정 (환경변수 또는 기본값)
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
+
 interface ClubStatus {
   [key: string]: {
     url: string;
@@ -20,7 +23,7 @@ export const useClubStatus = () => {
       setError(null);
       
       // 먼저 클럽 URL 목록을 가져옵니다
-      const urlsResponse = await fetch('http://127.0.0.1:5000/api/getClubUrls');
+      const urlsResponse = await fetch(`${API_BASE_URL}/api/getClubUrls`);
       if (!urlsResponse.ok) {
         throw new Error('클럽 URL 목록을 가져오는데 실패했습니다.');
       }
@@ -28,7 +31,7 @@ export const useClubStatus = () => {
       const clubUrls = await urlsResponse.json();
       
       // 크롤링 요청을 보냅니다
-      const scrapeResponse = await fetch('http://127.0.0.1:5000/api/scrapeClubs', {
+      const scrapeResponse = await fetch(`${API_BASE_URL}/api/scrapeClubs`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

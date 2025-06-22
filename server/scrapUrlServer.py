@@ -19,6 +19,9 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# 스크립트가 있는 디렉토리의 절대 경로를 가져옵니다.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CLUB_URLS_PATH = os.path.join(BASE_DIR, 'club_urls.json')
 
 def update_click_counts():
     """Redis에서 클릭 수를 가져와서 데이터베이스에 업데이트하는 함수."""
@@ -95,14 +98,23 @@ def get_club_urls():
         return '', 200  # CORS preflight response
         
     logging.info("GET /api/getClubUrls 요청 받음")
+    
+    # 디버깅: 파일 존재 여부 확인
+    if not os.path.exists(CLUB_URLS_PATH):
+        logging.error(f"CRITICAL: 'club_urls.json' not found at the specified path: {CLUB_URLS_PATH}")
+        return jsonify({
+            "error": "Server configuration error: A required file is missing.",
+            "debug_info": f"File not found at path: {CLUB_URLS_PATH}"
+        }), 500
+        
     try:
-        with open('club_urls.json', 'r', encoding='utf-8') as f:
+        with open(CLUB_URLS_PATH, 'r', encoding='utf-8') as f:
             club_data = json.load(f)
-        logging.info(f"데이터 로드 성공: {club_data}")
+        logging.info(f"데이터 로드 성공: {len(club_data)}개의 클럽")
         return jsonify(club_data)
     except Exception as e:
-        logging.error(f"Error in get_club_urls: {e}")
-        return jsonify({"error": str(e)}), 500
+        logging.error(f"Error reading or parsing 'club_urls.json': {e}")
+        return jsonify({"error": str(e), "path_used": CLUB_URLS_PATH}), 500
 
 @app.route('/api/getAllClickCounts', methods=['GET', 'OPTIONS'])
 def get_all_click_counts():

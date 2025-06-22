@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { clubData, Club } from '@/data/clubData';
+import { clubData, Club, tagColors } from '@/data/clubData';
 import ClubFilter from './ClubFilter';
 import { Star, Users, Clock, ExternalLink } from 'lucide-react';
 import { useClubStatus } from '@/hooks/useClubStatus';
@@ -11,6 +11,7 @@ const ClubListView = () => {
   
   const [currentFilter, setCurrentFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [hoveredClub, setHoveredClub] = useState<number | null>(null);
   
   // 스크롤 위치 저장을 위한 ref
   const scrollPositionRef = useRef<number>(0);
@@ -70,6 +71,8 @@ const ClubListView = () => {
   const ListView = (club: Club, index: number) => {
     const status = getClubStatus(club.name);
     const clicks = getClubClicks(club.name);
+    const isHovered = hoveredClub === club.id;
+    const hiddenPositions = club.positions.length >= 4 ? club.positions.slice(3) : [];
     
     return (
       <div 
@@ -93,9 +96,64 @@ const ClubListView = () => {
               <span className={`px-3 py-1 text-xs font-bold rounded-full ${status === 'ON' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
                 {status === 'ON' ? '모집중' : '모집마감'}
               </span>
-              {/* <div className='flex items-center gap-1 text-yellow-500'>
-                <Star className="w-4 h-4 fill-current" />
-              </div> */}
+              <div className='flex items-center gap-1 ml-auto relative'>
+                {club.positions.length < 4 ? (
+                  // 4개 미만일 경우 모든 직군 표시
+                  club.positions.map((position, index) => {
+                    const colorConfig = tagColors[position as keyof typeof tagColors] || { bg: "bg-gray-100", text: "text-gray-600" };
+                    return (
+                      <span 
+                        key={index}
+                        className={`px-2 py-1 text-xs rounded-md ${colorConfig.bg} ${colorConfig.text}`}
+                      >
+                        {position}
+                      </span>
+                    );
+                  })
+                ) : (
+                  // 4개 초과일 경우 처음 3개만 표시하고 나머지는 +로 표시
+                  <>
+                    {club.positions.slice(0, 3).map((position, index) => {
+                      const colorConfig = tagColors[position as keyof typeof tagColors] || { bg: "bg-gray-100", text: "text-gray-600" };
+                      return (
+                        <span 
+                          key={index}
+                          className={`px-2 py-1 text-xs rounded-md ${colorConfig.bg} ${colorConfig.text}`}
+                        >
+                          {position}
+                        </span>
+                      );
+                    })}
+                    <span 
+                      className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md cursor-help relative"
+                      onMouseEnter={() => setHoveredClub(club.id)}
+                      onMouseLeave={() => setHoveredClub(null)}
+                    >
+                      +{club.positions.length - 3}
+                      
+                      {/* 툴팁 */}
+                      {isHovered && hiddenPositions.length > 0 && (
+                        <div className="absolute top-full right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-3 z-10 min-w-max">
+                          <div className="text-xs text-gray-500 mb-2">추가 직군</div>
+                          <div className="flex flex-wrap gap-1">
+                            {hiddenPositions.map((position, index) => {
+                              const colorConfig = tagColors[position as keyof typeof tagColors] || { bg: "bg-gray-100", text: "text-gray-600" };
+                              return (
+                                <span 
+                                  key={index}
+                                  className={`px-2 py-1 text-xs rounded-md ${colorConfig.bg} ${colorConfig.text}`}
+                                >
+                                  {position}
+                                </span>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
             <p className="text-gray-600 mt-2">{club.description}</p>
 
@@ -105,10 +163,7 @@ const ClubListView = () => {
                   <Users className="w-4 h-4" />
                   <span>{club.class}기</span>
                 </div>
-                {/* <div className="flex items-center gap-1">
-                  <Eye className="w-4 h-4" />
-                  <span>{clicksLoading ? '로딩 중...' : clicks.toLocaleString()}</span>
-                </div> */}
+
                 <div className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
                   <span>Since {club.founded}</span>

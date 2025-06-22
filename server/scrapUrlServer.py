@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
@@ -8,8 +9,9 @@ import logging
 import redis
 from apscheduler.schedulers.background import BackgroundScheduler
 
-# Redis 클라이언트 설정
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+# Redis 클라이언트 설정 (환경변수 지원)
+redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
+redis_client = redis.from_url(redis_url, decode_responses=True)
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용

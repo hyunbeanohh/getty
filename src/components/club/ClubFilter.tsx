@@ -13,6 +13,7 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [showTooltip, setShowTooltip] = useState(false);
   
   // 스크롤 위치 저장을 위한 ref
   const scrollPositionRef = useRef<number>(0);
@@ -71,13 +72,27 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
         </div>
 
             {/* 고급 필터 토글 */}
-            <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 relative left-[50px] ${showFilters ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              >
-                <Filter className="w-5 h-5" />
-                필터
-            </button>
+            <div 
+              className="relative"
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              <button
+                  disabled
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 relative left-[50px] bg-gray-100 text-gray-400 cursor-not-allowed opacity-50"
+                >
+                  <Filter className="w-5 h-5" />
+                  필터
+              </button>
+              
+              {/* 커스텀 툴팁 */}
+              {showTooltip && (
+                <div className="absolute top-full left-[90px] transform -translate-x-1/2 mt-2 bg-gray-800 text-white text-xs px-2 py-1 rounded z-10 whitespace-nowrap">
+                  아직 준비중인 기능이에요!
+                  <div className="absolute bottom-full left-[90px] transform -translate-x-1/2 border-4 border-transparent border-b-gray-800"></div>
+                </div>
+              )}
+            </div>
 
             {/* 기본 필터 */}
             <div className="flex items-center gap-3 bg-gray-100 rounded-xl p-1">

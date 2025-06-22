@@ -1,4 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+
+// API URL 설정 (환경변수 또는 기본값)
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
 
 interface ClubClicks {
   [key: string]: number;
@@ -14,7 +17,7 @@ export const useClubClicks = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(`http://127.0.0.1:5000/api/getAllClickCounts`);
+      const response = await fetch(`${API_BASE_URL}/api/getAllClickCounts`);
       
       if (response.ok) {
         const data = await response.json();

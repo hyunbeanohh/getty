@@ -3,6 +3,7 @@
 /build/
 /dist/
 .env
+.env.local
 
 # Ignore package manager directories
 /node_modules/
@@ -10,3 +11,4 @@
 # Ignore club_urls.json file
 /server/club_urls.json
 /server/.venv/
+.vercel

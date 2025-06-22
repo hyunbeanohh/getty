@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { clubData, Club } from '@/data/clubData';
 import ClubFilter from './ClubFilter';
 import { Star, Users, Clock, ExternalLink } from 'lucide-react';
@@ -11,9 +11,15 @@ const ClubListView = () => {
   
   const [currentFilter, setCurrentFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // 스크롤 위치 저장을 위한 ref
+  const scrollPositionRef = useRef<number>(0);
 
   // 필터링 및 정렬된 동아리 목록
   const filteredAndSortedClubs = useMemo(() => {
+    // 현재 스크롤 위치 저장
+    scrollPositionRef.current = window.scrollY;
+    
     let filteredClubs = clubData;
 
     // 검색어 필터링
@@ -50,6 +56,16 @@ const ClubListView = () => {
 
     return filteredClubs;
   }, [clubData, currentFilter, searchTerm, getClubStatus]);
+
+  // 필터링된 결과가 변경된 후 스크롤 위치 복원
+  useEffect(() => {
+    if (scrollPositionRef.current > 0) {
+      // 다음 프레임에서 스크롤 위치 복원
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPositionRef.current);
+      });
+    }
+  }, [filteredAndSortedClubs]);
 
   const ListView = (club: Club, index: number) => {
     const status = getClubStatus(club.name);

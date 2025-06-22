@@ -16,20 +16,6 @@ const ClubFilter = () => {
                 <h2 className="text-3xl font-bold text-gray-900">전체 동아리</h2>
                 <span className="text-gray-500 text-lg">({clubData.length}개)</span>
             </div>
-        
-        {/* 정렬 */}
-        <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-            >
-            <option value="popularity">인기순</option>
-            <option value="rating">평점순</option>
-            <option value="members">멤버 수</option>
-            <option value="newest">최신순</option>
-            <option value="name">이름순</option>
-        </select>
-
 
         {/* 검색 */}
         <div className="relative">

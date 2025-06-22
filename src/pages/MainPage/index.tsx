@@ -6,7 +6,7 @@ function MainPage() {
     return (
         <div className="w-full h-full">
             <Header />
-            <PopularClub />
+            {/* <PopularClub /> */}
             <AllClub />
         </div>
     );

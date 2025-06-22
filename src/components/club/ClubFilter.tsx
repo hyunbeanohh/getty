@@ -2,12 +2,27 @@ import { useState } from 'react';
 import { clubData } from '@/data/clubData';
 import { Filter, Search } from 'lucide-react';
 
-const ClubFilter = () => {
+interface ClubFilterProps {
+  onFilterChange: (filter: string) => void;
+  onSearchChange: (searchTerm: string) => void;
+}
+
+const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
 
   const [sortBy, setSortBy] = useState('popularity');
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [filter, setFilter] = useState('all');
+
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter);
+    onFilterChange(newFilter);
+  };
+
+  const handleSearchChange = (newSearchTerm: string) => {
+    setSearchTerm(newSearchTerm);
+    onSearchChange(newSearchTerm);
+  };
 
   return (
     <div className="mt-10 mb-10">
@@ -24,7 +39,7 @@ const ClubFilter = () => {
                     type="text"
                     placeholder="동아리, 기술스택, 포지션 검색..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                     className="pl-12 pr-6 py-3 w-80 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none"
                 />
         </div>
@@ -42,7 +57,7 @@ const ClubFilter = () => {
             <div className="flex items-center gap-3 bg-gray-50 rounded-xl p-1">
                 <select
                   value={filter}
-                  onChange={(e) => setFilter(e.target.value)}
+                  onChange={(e) => handleFilterChange(e.target.value)}
                   className="bg-transparent border-none px-4 py-2 focus:ring-0 focus:outline-none text-gray-700 font-medium"
                 >
                   <option value="all">전체</option>

@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import { clubData, Club } from '@/data/clubData';
 import ClubFilter from './ClubFilter';
 import { Star, Users, Clock, ExternalLink } from 'lucide-react';
@@ -7,6 +8,48 @@ import { useClubClicks } from '@/hooks/useClubClicks';
 const ClubListView = () => {
   const { getClubStatus, loading: statusLoading, error: statusError } = useClubStatus();
   const { getClubClicks, loading: clicksLoading, error: clicksError } = useClubClicks();
+  
+  const [currentFilter, setCurrentFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // 필터링 및 정렬된 동아리 목록
+  const filteredAndSortedClubs = useMemo(() => {
+    let filteredClubs = clubData;
+
+    // 검색어 필터링
+    if (searchTerm) {
+      filteredClubs = filteredClubs.filter(club => 
+        club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        club.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        club.positions.some(position => position.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    // 모집 상태별 필터링 및 정렬
+    if (currentFilter === 'recruiting') {
+      // 모집중인 동아리들을 먼저 정렬
+      filteredClubs = filteredClubs.sort((a, b) => {
+        const statusA = getClubStatus(a.name);
+        const statusB = getClubStatus(b.name);
+        
+        if (statusA === 'ON' && statusB === 'OFF') return -1;
+        if (statusA === 'OFF' && statusB === 'ON') return 1;
+        return 0;
+      });
+    } else if (currentFilter === 'closed') {
+      // 모집마감인 동아리들을 먼저 정렬
+      filteredClubs = filteredClubs.sort((a, b) => {
+        const statusA = getClubStatus(a.name);
+        const statusB = getClubStatus(b.name);
+        
+        if (statusA === 'OFF' && statusB === 'ON') return -1;
+        if (statusA === 'ON' && statusB === 'OFF') return 1;
+        return 0;
+      });
+    }
+
+    return filteredClubs;
+  }, [clubData, currentFilter, searchTerm, getClubStatus]);
 
   const ListView = (club: Club, index: number) => {
     const status = getClubStatus(club.name);
@@ -75,10 +118,13 @@ const ClubListView = () => {
 
   return (
     <div>
-      <ClubFilter />
+      <ClubFilter 
+        onFilterChange={setCurrentFilter}
+        onSearchChange={setSearchTerm}
+      />
       
       <div className="space-y-4">
-        {clubData.map((club, index) => ListView(club, index))}
+        {filteredAndSortedClubs.map((club, index) => ListView(club, index))}
       </div>
     </div>
   );

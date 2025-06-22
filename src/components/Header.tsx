@@ -20,7 +20,14 @@ const Header = () => {
         >
             IT 뉴스
         </a>
-        <div className='text-lg mr-5 text-white hover:text-yellow-400 cursor-pointer'>모집 요청</div>
+        <div 
+          className='text-lg mr-5 text-white hover:text-yellow-400 cursor-pointer'
+          onClick={() => {
+            navigate('/request');
+          }}
+        >
+          모집 요청
+        </div>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-## Get It Club Information (getty)
+## Get it IT (getty)
 🎉IT 동아리를 알아보기 위해 귀찮게 검색하지말고 한번에 홈페이지로 보자!
 
 ## 프로젝트 소개

@@ -64,7 +64,7 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
                 <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="동아리, 기술스택, 포지션 검색..."
+                    placeholder="동아리, 포지션 검색..."
                     value={searchTerm}
                     onChange={(e) => handleSearchChange(e.target.value)}
                     className="pl-12 pr-6 py-3 w-80 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none"

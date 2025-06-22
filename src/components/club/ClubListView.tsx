@@ -4,6 +4,7 @@ import ClubFilter from './ClubFilter';
 import { Star, Users, Clock, ExternalLink } from 'lucide-react';
 import { useClubStatus } from '@/hooks/useClubStatus';
 import { useClubClicks } from '@/hooks/useClubClicks';
+import { useClubSearch } from '@/hooks/useClubSearch';
 
 const ClubListView = () => {
   const { getClubStatus, loading: statusLoading, error: statusError } = useClubStatus();
@@ -16,21 +17,15 @@ const ClubListView = () => {
   // 스크롤 위치 저장을 위한 ref
   const scrollPositionRef = useRef<number>(0);
 
+  // 검색어 필터링
+  const { filteredClubs: searchFilteredClubs } = useClubSearch({ searchTerm });
+
   // 필터링 및 정렬된 동아리 목록
   const filteredAndSortedClubs = useMemo(() => {
     // 현재 스크롤 위치 저장
     scrollPositionRef.current = window.scrollY;
     
-    let filteredClubs = clubData;
-
-    // 검색어 필터링
-    if (searchTerm) {
-      filteredClubs = filteredClubs.filter(club => 
-        club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        club.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        club.positions.some(position => position.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
+    let filteredClubs = searchFilteredClubs;
 
     // 모집 상태별 필터링 및 정렬
     if (currentFilter === 'recruiting') {
@@ -56,7 +51,7 @@ const ClubListView = () => {
     }
 
     return filteredClubs;
-  }, [clubData, currentFilter, searchTerm, getClubStatus]);
+  }, [searchFilteredClubs, currentFilter, getClubStatus]);
 
   // 필터링된 결과가 변경된 후 스크롤 위치 복원
   useEffect(() => {

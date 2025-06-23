@@ -9,6 +9,11 @@ import logging
 import redis
 from apscheduler.schedulers.background import BackgroundScheduler
 
+# 어떤 환경에서 실행되든 항상 scrapUrlServer.py 파일 기준으로 경로를 찾습니다.
+# 이 방법이 로컬/배포 환경 호환성을 보장하는 가장 안정적인 방법입니다.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CLUB_URLS_PATH = os.path.join(BASE_DIR, 'club_urls.json')
+
 # Redis 클라이언트 설정 (환경변수 지원)
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
 redis_client = redis.from_url(redis_url, decode_responses=True)
@@ -19,24 +24,17 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# 스크립트가 있는 디렉토리의 절대 경로를 가져옵니다.
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CLUB_URLS_PATH = os.path.join(BASE_DIR, 'club_urls.json')
-
 def update_click_counts():
     """Redis에서 클릭 수를 가져와서 데이터베이스에 업데이트하는 함수."""
     logging.info("클릭 수 업데이트 시작")
     try:
-        # club_urls.json 파일에서 클럽 이름을 가져오는 로직
-        with open('server/club_urls.json', 'r', encoding='utf-8') as f:
+        with open(CLUB_URLS_PATH, 'r', encoding='utf-8') as f:
             club_data = json.load(f)
         
         for club in club_data:
-            club_name = club['name']  # 클럽 이름 가져오기
+            club_name = club['name']
             current_clicks = redis_client.get(club_name)
             if current_clicks is not None:
-                # 데이터베이스에 클릭 수 업데이트하는 로직
-                # 예: db.update_click_count(club_name, current_clicks)
                 logging.info(f"{club_name} 클릭 수 업데이트: {current_clicks}")
     except Exception as e:
         logging.error(f"클릭 수 업데이트 중 오류 발생: {e}")
@@ -99,19 +97,17 @@ def get_club_urls():
         
     logging.info("GET /api/getClubUrls 요청 받음")
     
-    # 디버깅: 파일 존재 여부 확인
-    if not os.path.exists(CLUB_URLS_PATH):
-        logging.error(f"CRITICAL: 'club_urls.json' not found at the specified path: {CLUB_URLS_PATH}")
-        return jsonify({
-            "error": "Server configuration error: A required file is missing.",
-            "debug_info": f"File not found at path: {CLUB_URLS_PATH}"
-        }), 500
-        
     try:
         with open(CLUB_URLS_PATH, 'r', encoding='utf-8') as f:
             club_data = json.load(f)
         logging.info(f"데이터 로드 성공: {len(club_data)}개의 클럽")
         return jsonify(club_data)
+    except FileNotFoundError:
+        logging.error(f"CRITICAL: 'club_urls.json' not found at the specified path: {CLUB_URLS_PATH}")
+        return jsonify({
+            "error": "Server configuration error: A required file is missing.",
+            "debug_info": f"File not found at path: {CLUB_URLS_PATH}"
+        }), 500
     except Exception as e:
         logging.error(f"Error reading or parsing 'club_urls.json': {e}")
         return jsonify({"error": str(e), "path_used": CLUB_URLS_PATH}), 500
@@ -122,7 +118,7 @@ def get_all_click_counts():
         return '', 200
     logging.info("GET /api/getAllClickCounts 요청 받음")
     try:
-        with open('server/club_urls.json', 'r', encoding='utf-8') as f:
+        with open(CLUB_URLS_PATH, 'r', encoding='utf-8') as f:
             clubs_data = json.load(f)
         
         club_names = [club['name'] for club in clubs_data]
@@ -130,16 +126,12 @@ def get_all_click_counts():
         clicks_data = {}
         for name in club_names:
             current_clicks = redis_client.get(name)
-            if current_clicks is None:
-                clicks_data[name] = 0
-            else:
-                clicks_data[name] = int(current_clicks)
+            clicks_data[name] = int(current_clicks) if current_clicks else 0
         
         return jsonify(clicks_data)
-        
     except Exception as e:
         logging.error(f"Error in getAllClickCounts: {e}")
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e), "path_used": CLUB_URLS_PATH}), 500
 
 def extract_status(soup, club):
     """
@@ -250,6 +242,22 @@ def scrape_clubs():
 @app.route('/api/test', methods=['GET'])
 def test():
     return jsonify({"message": "API is working!"})
+
+@app.route('/api/debug-file')
+def debug_file():
+    """
+    파일 경로 문제를 디버깅하기 위한 엔드포인트입니다.
+    서버의 현재 작업 디렉토리와 계산된 파일 경로, 파일 존재 여부를 반환합니다.
+    """
+    current_working_directory = os.getcwd()
+    
+    return jsonify({
+        "info": "File Path Debugging Information",
+        "current_working_directory": current_working_directory,
+        "calculated_base_dir_for_script": BASE_DIR,
+        "final_club_urls_path": CLUB_URLS_PATH,
+        "does_file_exist_at_path": os.path.exists(CLUB_URLS_PATH)
+    })
 
 if __name__ == '__main__':
     logging.info("서버 시작: http://127.0.0.1:5000")

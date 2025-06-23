@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: getty-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn scrapUrlServer:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: REDIS_URL
+        sync: false  # Redis 애드온에서 설정 

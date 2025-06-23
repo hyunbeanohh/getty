@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { CLUBS } from '@/data/popularClubData';
-import { useClubStatus } from '@/components/club/hook/useClubStatus';
+import { useClubStatus } from '@/hooks/useClubStatus';
 import ClubSlideList from './ClubSlideList';
 
 const PopularClub = () => {
@@ -8,7 +8,7 @@ const PopularClub = () => {
   const [animate, setAnimate] = useState(true);
   const onStop = () => setAnimate(false);
   const onStart = () => setAnimate(true);
-  const { loading, clubStatus } = useClubStatus(CLUBS);
+  const { loading, clubStatus } = useClubStatus();
 
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;

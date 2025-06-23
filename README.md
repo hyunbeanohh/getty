@@ -18,9 +18,15 @@
 
 - **백엔드**
   - Python 3.x
-  - FastAPI (또는 Flask)
-  - Selenium/BeautifulSoup (웹 스크래핑)
+  - Flask
+  - BeautifulSoup (웹 스크래핑)
+  - Redis (클릭 수 저장)
   - JSON 데이터 관리
+
+## 배포 정보
+- **프론트엔드**: Vercel
+- **백엔드**: Render
+- **데이터베이스**: Redis (Render 애드온)
 
 ## 개발 환경
 - **JavaScript Framework**: React 18+
@@ -36,7 +42,6 @@ git clone [repository-url]
 
 2. 프론트엔드 의존성 설치
 ```bash
-cd client
 npm install
 # or
 yarn install
@@ -53,7 +58,6 @@ pip install -r requirements.txt
 4. 개발 서버 실행
 ```bash
 # 프론트엔드
-cd client
 npm run dev
 # or
 yarn dev
@@ -64,10 +68,6 @@ python scrapUrlServer.py
 ```
 
 ## 환경 변수 설정
-```env
-# 프론트엔드
-VITE_API_URL=http://localhost:8000
 
-# 백엔드
-PYTHONPATH=.
-```
+### 프론트엔드 (.env 파일 생성)
+```env

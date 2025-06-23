@@ -9,10 +9,33 @@ import logging
 import redis
 from apscheduler.schedulers.background import BackgroundScheduler
 
-# 어떤 환경에서 실행되든 항상 scrapUrlServer.py 파일 기준으로 경로를 찾습니다.
-# 이 방법이 로컬/배포 환경 호환성을 보장하는 가장 안정적인 방법입니다.
+# Render 배포 환경에서 파일 경로 문제 해결
+# 현재 작업 디렉토리와 스크립트 위치를 모두 고려
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CLUB_URLS_PATH = os.path.join(BASE_DIR, 'club_urls.json')
+WORKING_DIR = os.getcwd()
+
+# club_urls.json 파일 경로를 여러 위치에서 찾기
+possible_paths = [
+    os.path.join(BASE_DIR, 'club_urls.json'),  # 스크립트와 같은 디렉토리
+    os.path.join(WORKING_DIR, 'club_urls.json'),  # 현재 작업 디렉토리
+    os.path.join(WORKING_DIR, 'server', 'club_urls.json'),  # server 하위 디렉토리
+    '/opt/render/project/src/server/club_urls.json',  # Render 배포 경로
+]
+
+# 환경 변수로 파일 경로를 직접 지정할 수도 있음
+env_file_path = os.getenv('CLUB_URLS_PATH')
+if env_file_path:
+    possible_paths.insert(0, env_file_path)
+
+CLUB_URLS_PATH = None
+for path in possible_paths:
+    if os.path.exists(path):
+        CLUB_URLS_PATH = path
+        break
+
+if CLUB_URLS_PATH is None:
+    # 파일을 찾을 수 없는 경우 기본값 설정
+    CLUB_URLS_PATH = os.path.join(BASE_DIR, 'club_urls.json')
 
 # Redis 클라이언트 설정 (환경변수 지원)
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
@@ -24,10 +47,23 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Render 배포를 위한 포트 설정
+port = int(os.environ.get('PORT', 5000))
+
+# 서버 시작 시 파일 경로 로깅
+logging.info(f"BASE_DIR: {BASE_DIR}")
+logging.info(f"WORKING_DIR: {WORKING_DIR}")
+logging.info(f"CLUB_URLS_PATH: {CLUB_URLS_PATH}")
+logging.info(f"File exists: {os.path.exists(CLUB_URLS_PATH)}")
+
 def update_click_counts():
     """Redis에서 클릭 수를 가져와서 데이터베이스에 업데이트하는 함수."""
     logging.info("클릭 수 업데이트 시작")
     try:
+        if not os.path.exists(CLUB_URLS_PATH):
+            logging.error(f"club_urls.json 파일을 찾을 수 없습니다: {CLUB_URLS_PATH}")
+            return
+            
         with open(CLUB_URLS_PATH, 'r', encoding='utf-8') as f:
             club_data = json.load(f)
         
@@ -36,6 +72,8 @@ def update_click_counts():
             current_clicks = redis_client.get(club_name)
             if current_clicks is not None:
                 logging.info(f"{club_name} 클릭 수 업데이트: {current_clicks}")
+    except FileNotFoundError:
+        logging.error(f"club_urls.json 파일을 찾을 수 없습니다: {CLUB_URLS_PATH}")
     except Exception as e:
         logging.error(f"클릭 수 업데이트 중 오류 발생: {e}")
 
@@ -251,14 +289,25 @@ def debug_file():
     """
     current_working_directory = os.getcwd()
     
+    # 모든 가능한 경로 확인
+    path_checks = {}
+    for i, path in enumerate(possible_paths):
+        path_checks[f"path_{i}"] = {
+            "path": path,
+            "exists": os.path.exists(path)
+        }
+    
     return jsonify({
         "info": "File Path Debugging Information",
         "current_working_directory": current_working_directory,
         "calculated_base_dir_for_script": BASE_DIR,
         "final_club_urls_path": CLUB_URLS_PATH,
-        "does_file_exist_at_path": os.path.exists(CLUB_URLS_PATH)
+        "does_file_exist_at_path": os.path.exists(CLUB_URLS_PATH),
+        "all_possible_paths": path_checks,
+        "redis_url": redis_url,
+        "port": port
     })
 
 if __name__ == '__main__':
-    logging.info("서버 시작: http://127.0.0.1:5000")
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    logging.info("서버 시작: http://127.0.0.1:%d" % port)
+    app.run(debug=True, host='127.0.0.1', port=port)

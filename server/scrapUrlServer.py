@@ -24,6 +24,9 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # 모든 출처 허용
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Render 배포를 위한 포트 설정
+port = int(os.environ.get('PORT', 5000))
+
 def update_click_counts():
     """Redis에서 클릭 수를 가져와서 데이터베이스에 업데이트하는 함수."""
     logging.info("클릭 수 업데이트 시작")
@@ -260,5 +263,5 @@ def debug_file():
     })
 
 if __name__ == '__main__':
-    logging.info("서버 시작: http://127.0.0.1:5000")
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    logging.info("서버 시작: http://127.0.0.1:%d" % port)
+    app.run(debug=True, host='127.0.0.1', port=port)

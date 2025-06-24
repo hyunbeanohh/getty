@@ -1,0 +1,53 @@
+[
+    {
+      "name": "디프만",
+      "url": "https://www.depromeet.com/",
+      "button_text": "지원 마감"
+    },
+    {
+      "name": "DDD",
+      "url": "https://dddset.notion.site/DDD-7b73ca41b67c4658b292a4662581ee01",
+      "button_text": "지원하기"
+    },
+    {
+      "name": "DND",
+      "url": "https://dnd.ac/",
+      "button_text": "알림 신청하기"
+    },
+    {
+      "name": "YAPP",
+      "url": "https://www.yapp.co.kr/",
+      "button_text": "알림 신청하기",
+      "button_selector": ".recruitButton"
+    },
+    {
+        "name": "MashUP",
+        "url": "https://recruit.mash-up.kr/recruit/web",
+        "button_text": "지난 모집 훑어보기"
+    },
+    {
+        "name": "SOPT",
+        "url": "https://www.sopt.org/",
+        "button_text": "모집 알림 신청하기"
+    },
+    {
+        "name": "NEXTERS",
+        "url": "https://nexters.co.kr/",
+        "button_text": "모집 알림 신청"
+    },
+    {
+        "name": "Prography",
+        "url": "https://prography.org/",
+        "button_text": "모집 알림 신청"
+    },
+    {
+        "name": "Pirogramming",
+        "url": "https://pirogramming.com/",
+        "button_text": "모집 알림 신청"
+    },
+    {
+        "name": "AUGS",
+        "url": "https://ausg.me/",
+        "button_text": "모집 알림 신청"
+    }
+  ]

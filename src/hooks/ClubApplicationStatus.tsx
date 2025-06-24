@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Club } from '@/types/types';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
 
 interface ClubStatus {
   [key: string]: {
@@ -7,7 +10,11 @@ interface ClubStatus {
   };
 }
 
-function ClubApplicationStatus() {
+interface ClubApplicationStatusProps {
+  club: Club;
+}
+
+export const ClubApplicationStatus: React.FC<ClubApplicationStatusProps> = ({ club }) => {
   const [clubStatus, setClubStatus] = useState<ClubStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +23,7 @@ function ClubApplicationStatus() {
     const fetchClubStatus = async () => {
       try {
         console.log('Fetching club URLs...');
-        const response = await fetch('/api/getClubUrls', {
+        const response = await fetch(`${API_BASE_URL}/api/getClubUrls`, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
@@ -32,7 +39,7 @@ function ClubApplicationStatus() {
         console.log('Club URLs response:', data);
 
         console.log('Sending scrape request...');
-        const scrapeResponse = await fetch('/api/scrapeClubs', {
+        const scrapeResponse = await fetch(`${API_BASE_URL}/api/scrapeClubs`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -78,5 +85,3 @@ function ClubApplicationStatus() {
     </div>
   );
 }
-
-export default ClubApplicationStatus;

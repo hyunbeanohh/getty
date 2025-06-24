@@ -1,9 +1,9 @@
 import { Club } from '@/types/types';
-import Deproment from '@/assets/images/Deproment.png';
-import DND from '@/assets/images/Dnd.png';
-import YAPP from '@/assets/images/Yapp.png';
-import DDD from '@/assets/images/DDD.png';
-import MashUP from '@/assets/images/MashUP.png';
+import Deproment from '@/assets/images/deproment.png';
+import DND from '@/assets/images/dnd.png';
+import YAPP from '@/assets/images/yapp.png';
+import DDD from '@/assets/images/ddd.png';
+import MashUP from '@/assets/images/mashup.png';
 
 export const CLUBS: Club[] = [
   { id: 'depromeet', image: Deproment, target: "https://www.depromeet.com", status: "OFF" },

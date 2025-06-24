@@ -1,13 +1,13 @@
-import Deproment from '@/assets/images/Deproment.png';
-import DND from '@/assets/images/Dnd.png';
-import YAPP from '@/assets/images/Yapp.png';
-import DDD from '@/assets/images/DDD.png';
-import MashUP from '@/assets/images/MashUP.png';
-import SOPT from '@/assets/images/Sopt.png';
-import NEXTERS from '@/assets/images/Nexters.jpg';
-import Prography from '@/assets/images/Prography.png';
-import Programming from '@/assets/images/Programming.jpg';
-import AUGS from '@/assets/images/Augs.png';
+import Deproment from '@/assets/images/deproment.png';
+import DND from '@/assets/images/dnd.png';
+import YAPP from '@/assets/images/yapp.png';
+import DDD from '@/assets/images/ddd.png';
+import MashUP from '@/assets/images/mashup.png';
+import SOPT from '@/assets/images/sopt.png';
+import NEXTERS from '@/assets/images/nexters.jpg';
+import Prography from '@/assets/images/prography.png';
+import Programming from '@/assets/images/programming.jpg';
+import AUGS from '@/assets/images/augs.png';
 
 export interface Club {
   id: number;

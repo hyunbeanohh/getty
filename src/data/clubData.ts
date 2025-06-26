@@ -1,4 +1,4 @@
-import Deproment from '@/assets/images/deproment.png';
+import Depromeet from '@/assets/images/depromeet.png';
 import DND from '@/assets/images/dnd.png';
 import YAPP from '@/assets/images/yapp.png';
 import DDD from '@/assets/images/ddd.png';
@@ -37,7 +37,7 @@ export const clubData: Club[] = [
   {
     id: 1,
     name: '디프만',
-    image: Deproment,
+    image: Depromeet,
     description: '디프만은 디자이너와 프로그래머가 만났을 때의 줄임말로, 서비스 기획부터 론칭과 개선까지 다양한 경험을 합니다.',
     target: 'https://www.depromeet.com',
     positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS'],

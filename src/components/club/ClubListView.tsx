@@ -27,26 +27,18 @@ const ClubListView = () => {
     
     let filteredClubs = searchFilteredClubs;
 
-    // 모집 상태별 필터링 및 정렬
+    // 모집 상태별 필터링
     if (currentFilter === 'recruiting') {
-      // 모집중인 동아리들을 먼저 정렬
-      filteredClubs = filteredClubs.sort((a, b) => {
-        const statusA = getClubStatus(a.name);
-        const statusB = getClubStatus(b.name);
-        
-        if (statusA === 'ON' && statusB === 'OFF') return -1;
-        if (statusA === 'OFF' && statusB === 'ON') return 1;
-        return 0;
+      // 모집중인 동아리만 필터링
+      filteredClubs = filteredClubs.filter(club => {
+        const status = getClubStatus(club.name);
+        return status === 'ON';
       });
     } else if (currentFilter === 'closed') {
-      // 모집마감인 동아리들을 먼저 정렬
-      filteredClubs = filteredClubs.sort((a, b) => {
-        const statusA = getClubStatus(a.name);
-        const statusB = getClubStatus(b.name);
-        
-        if (statusA === 'OFF' && statusB === 'ON') return -1;
-        if (statusA === 'ON' && statusB === 'OFF') return 1;
-        return 0;
+      // 모집마감인 동아리만 필터링
+      filteredClubs = filteredClubs.filter(club => {
+        const status = getClubStatus(club.name);
+        return status === 'OFF';
       });
     }
 

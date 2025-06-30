@@ -5,6 +5,7 @@ import { Star, Users, Clock, ExternalLink } from 'lucide-react';
 import { useClubStatus } from '@/hooks/useClubStatus';
 import { useClubClicks } from '@/hooks/useClubClicks';
 import { useClubSearch } from '@/hooks/useClubSearch';
+import noResultVideo from '@/assets/video/noresult-video.mp4';
 
 const ClubListView = () => {
   const { getClubStatus, loading: statusLoading, error: statusError } = useClubStatus();
@@ -182,7 +183,29 @@ const ClubListView = () => {
       />
       
       <div className="space-y-4">
-        {filteredAndSortedClubs.map((club, index) => ListView(club, index))}
+        {filteredAndSortedClubs.length > 0 ? (
+          filteredAndSortedClubs.map((club, index) => ListView(club, index))
+        ) : (
+          <div className="flex flex-col items-center justify-center py-4 bg-white rounded-2xl shadow-lg border border-gray-100">
+            <div className="text-gray-400 mb-4 overflow-hidden">
+              <video src={noResultVideo} autoPlay loop muted className="w-full h-full object-cover relative top-[40px]" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-700 mb-2">
+              {searchTerm ? '검색 결과가 없어요.' : 
+               currentFilter === 'recruiting' ? '모집중인 동아리가 없어요' :
+               currentFilter === 'closed' ? '모집마감인 동아리가 없어요' :
+               '동아리를 찾을 수 없어요.'}
+            </h3>
+            <p className="text-gray-500 text-center">
+              {searchTerm ? 
+                `"${searchTerm}"에 대한 검색 결과가 없습니다.` :
+                currentFilter === 'recruiting' ? '현재 모집중인 동아리가 없습니다. 나중에 다시 확인해보세요.' :
+                currentFilter === 'closed' ? '현재 모집마감인 동아리가 없습니다.' :
+                '조건에 맞는 동아리를 찾을 수 없습니다.'
+              }
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

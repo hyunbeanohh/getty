@@ -5,9 +5,9 @@ const AllClub = () => {
 
   return (
     <div>
-      <div className='w-full h-full bg-white mx-auto rounded-lg mt-10'>
+      {/* <div className='w-full h-full bg-white mx-auto rounded-lg mt-10'>
         <Kadvice />
-      </div>
+      </div> */}
       <div className='w-[1000px] mx-auto'>
         <ClubListView/>
       </div>

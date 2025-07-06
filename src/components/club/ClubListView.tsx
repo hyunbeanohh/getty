@@ -14,37 +14,37 @@ const ClubListView = () => {
   const [currentFilter, setCurrentFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [hoveredClub, setHoveredClub] = useState<number | null>(null);
+  const [filteredClubs, setFilteredClubs] = useState<Club[]>(clubData);
   
   // 스크롤 위치 저장을 위한 ref
   const scrollPositionRef = useRef<number>(0);
 
-  // 검색어 필터링
-  const { filteredClubs: searchFilteredClubs } = useClubSearch({ searchTerm });
+  // 필터링된 동아리 목록 (ClubFilterView에서 받아온 결과)
+  const handleFilteredClubs = (clubs: Club[]) => {
+    setFilteredClubs(clubs);
+  };
 
-  // 필터링 및 정렬된 동아리 목록
-  const filteredAndSortedClubs = useMemo(() => {
-    // 현재 스크롤 위치 저장
+  // 모집 상태별 필터링 (기존 필터와 통합)
+  const finalFilteredClubs = useMemo(() => {
     scrollPositionRef.current = window.scrollY;
     
-    let filteredClubs = searchFilteredClubs;
+    let result = filteredClubs;
 
     // 모집 상태별 필터링
     if (currentFilter === 'recruiting') {
-      // 모집중인 동아리만 필터링
-      filteredClubs = filteredClubs.filter(club => {
+      result = result.filter(club => {
         const status = getClubStatus(club.name);
         return status === 'ON';
       });
     } else if (currentFilter === 'closed') {
-      // 모집마감인 동아리만 필터링
-      filteredClubs = filteredClubs.filter(club => {
+      result = result.filter(club => {
         const status = getClubStatus(club.name);
         return status === 'OFF';
       });
     }
 
-    return filteredClubs;
-  }, [searchFilteredClubs, currentFilter, getClubStatus]);
+    return result;
+  }, [filteredClubs, currentFilter, getClubStatus]);
 
   // 필터링된 결과가 변경된 후 스크롤 위치 복원
   useEffect(() => {
@@ -54,7 +54,7 @@ const ClubListView = () => {
         window.scrollTo(0, scrollPositionRef.current);
       });
     }
-  }, [filteredAndSortedClubs]);
+  }, [finalFilteredClubs]);
 
   const ListView = (club: Club, index: number) => {
     const status = getClubStatus(club.name);
@@ -180,11 +180,12 @@ const ClubListView = () => {
       <ClubFilter 
         onFilterChange={setCurrentFilter}
         onSearchChange={setSearchTerm}
+        onFilteredClubs={handleFilteredClubs}
       />
       
       <div className="space-y-4">
-        {filteredAndSortedClubs.length > 0 ? (
-          filteredAndSortedClubs.map((club, index) => ListView(club, index))
+        {finalFilteredClubs.length > 0 ? (
+          finalFilteredClubs.map((club, index) => ListView(club, index))
         ) : (
           <div className="flex flex-col items-center justify-center py-4 bg-white rounded-2xl shadow-lg border border-gray-100">
             <div className="text-gray-400 mb-4 overflow-hidden">

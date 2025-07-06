@@ -18,6 +18,7 @@ export interface Club {
   positions: string[];
   class: number;
   founded: string;
+  techStack: string[];
 }
 
 export const tagColors = {
@@ -40,9 +41,10 @@ export const clubData: Club[] = [
     image: Depromeet,
     description: '디프만은 디자이너와 프로그래머가 만났을 때의 줄임말로, 서비스 기획부터 론칭과 개선까지 다양한 경험을 합니다.',
     target: 'https://www.depromeet.com',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS','웹','서버','디자인','기획','UI/UX'],
     class: 17,
-    founded: '2016'
+    founded: '2016',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 2,
@@ -50,9 +52,10 @@ export const clubData: Club[] = [
     image: DDD,
     description: 'DDD는 개발자와 디자이너가 함께 사이드 프로젝트를 진행하며 서로의 이해와 친목을 쌓는 기회를 제공합니다.',
     target: 'https://dddset.notion.site/DDD-7b73ca41b67c4658b292a4662581ee01',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS' ,'PM'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS' ,'PM','웹','서버','디자인','기획','UI/UX'],
     class: 12,
-    founded: '2020'
+    founded: '2020',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 3,
@@ -60,9 +63,10 @@ export const clubData: Club[] = [
     image: DND,
     description: 'DND는 사이드 프로젝트를 해보고 싶은 개발자와 디자이너가 팀을 이뤄 8주간 프로젝트를 경험하는 비영리단체입니다.',
     target: 'https://dnd.ac',
-    positions: ['프론트엔드', '백엔드', '디자이너' ,'PM' ,'안드로이드' ,'IOS'],
+    positions: ['프론트엔드', '백엔드', '디자이너' ,'PM' ,'안드로이드' ,'IOS','웹','서버','디자인','기획','UI/UX'],
     class: 13,
-    founded: '2019'
+    founded: '2019',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 4,
@@ -70,9 +74,10 @@ export const clubData: Club[] = [
     image: YAPP,
     description: 'YAPP은 대학생들의 다양한 아이디어와 열정으로 새로운 가치를 만드는 기업형 IT 동아리입니다.',
     target: 'https://www.yapp.co.kr',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자','웹','서버','디자인','기획','UI/UX'],
     class: 26,
-    founded: '2013'
+    founded: '2013',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 5,
@@ -80,9 +85,10 @@ export const clubData: Club[] = [
     image: MashUP,
     description: 'MashUp은 개발과 디자인에 관심 있는 사람들이 모여 팀별 스터디와 네트워킹을 통해 프로젝트를 진행하는 IT 연합 동아리입니다.',
     target: 'https://mash-up.kr',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS','웹','서버','디자인','기획','UI/UX'],
     class: 15,
-    founded: '2015'
+    founded: '2015',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 6,
@@ -90,9 +96,10 @@ export const clubData: Club[] = [
     image: SOPT,
     description: 'SOPT는 IT와 벤처창업에 뜻이 있는 대학생들이 모인 연합 IT벤처창업 동아리입니다.',
     target: 'https://www.sopt.org',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS','웹','서버','디자인','기획','UI/UX'],
     class: 37,
-    founded: '2011'
+    founded: '2011',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 7,
@@ -100,9 +107,10 @@ export const clubData: Club[] = [
     image: NEXTERS,
     description: 'NEXTERS는 자유롭게 협업하고 소통하며 IT 인재로 발전하는 것을 목표로 하는 동아리입니다.',
     target: 'https://www.nexters.co.kr',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자', '안드로이드' ,'IOS','웹','서버','디자인','기획','UI/UX'],
     class: 27,
-    founded: '2017'
+    founded: '2017',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 8,
@@ -110,9 +118,10 @@ export const clubData: Club[] = [
     image: Prography,
     description: 'Prography는 개발자와 디자이너가 함께 서비스를 기획하고 개발하는 프로젝트를 진행합니다.',
     target: 'https://prography.org/',
-    positions: ['프론트엔드', '백엔드', '디자이너', '기획자'],
+    positions: ['프론트엔드', '백엔드', '디자이너', '기획자','웹','서버','디자인','기획','UI/UX'],
     class: 11,
-    founded: '2019'
+    founded: '2019',
+    techStack: ['IOS','React','Next.js','Vue.js','React-Native', 'Typescript','HTML/CSS','Spring','Angular','Flutter','Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 9,
@@ -120,9 +129,10 @@ export const clubData: Club[] = [
     image: Programming,
     description: 'Programming은 비전공자들이 파이썬과 장고를 기반으로 웹 개발을 배우는 동아리입니다.',
     target: 'https://pirogramming.com/',
-    positions: ['프론트엔드', '백엔드'],
+    positions: ['프론트엔드', '백엔드','웹','서버'],
     class: 23,
-    founded: '2020'
+    founded: '2020',
+    techStack: ['React', 'Javascript','Node.js','Java','Kotlin','PHP','Swift']
   },
   {
     id: 10,
@@ -130,8 +140,9 @@ export const clubData: Club[] = [
     image: AUGS,
     description: 'AUGS는 개발과 즐거운 네트워크 형성을 함께하는 대학생들의 모임입니다.',
     target: 'https://ausg.me/',
-    positions: ['백엔드'],
+    positions: ['백엔드','서버','DevOps'],
     class: 9,
-    founded: '2021'
+    founded: '2021',
+    techStack :['백엔드','AWS','Docker','Kubernetes','CI/CD','DevOps']
   }
 ]; 

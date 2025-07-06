@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
-import { clubData } from '@/data/clubData';
+import { clubData, Club } from '@/data/clubData';
 import { Filter, Search } from 'lucide-react';
+import ClubFilterView from './ClubFilterView';
 
 interface ClubFilterProps {
   onFilterChange: (filter: string) => void;
   onSearchChange: (searchTerm: string) => void;
+  onFilteredClubs?: (clubs: Club[]) => void;
 }
 
-const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
+const ClubFilter = ({ onFilterChange, onSearchChange, onFilteredClubs }: ClubFilterProps) => {
 
   const [sortBy, setSortBy] = useState('popularity');
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,6 +52,23 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
     onFilterChange(newFilter);
   };
 
+  // 필터 토글
+  const toggleFilters = () => {
+    setShowFilters(!showFilters);
+  };
+
+  // 필터 닫기
+  const closeFilters = () => {
+    setShowFilters(false);
+  };
+
+  // 필터링된 클럽 받기
+  const handleFilteredClubs = (clubs: Club[]) => {
+    if (onFilteredClubs) {
+      onFilteredClubs(clubs);
+    }
+  };
+
   return (
     <div className="mt-10 mb-10">
         <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-white rounded-2xl p-6 shadow-lg">
@@ -64,7 +83,7 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
                 <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="동아리, 포지션 검색..."
+                    placeholder="동아리, 기술스택, 포지션 검색..."
                     value={searchTerm}
                     onChange={(e) => handleSearchChange(e.target.value)}
                     className="pl-12 pr-6 py-3 w-80 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none"
@@ -76,22 +95,18 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
               className="relative left-[50px]"
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
+              onClick={toggleFilters}
             >
               <button
-                  disabled
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200  bg-gray-100 text-gray-400 cursor-not-allowed opacity-50"
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 ${
+                    showFilters 
+                      ? 'bg-blue-500 text-white shadow-md' 
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
                 >
                   <Filter className="w-5 h-5" />
                   필터
               </button>
-              
-              {/* 커스텀 툴팁 */}
-              {showTooltip && (
-                <div className="absolute top-full left-[55px] transform -translate-x-1/2 mt-2 bg-gray-800 text-white text-xs px-2 py-1 rounded z-10 whitespace-nowrap">
-                  아직 준비중인 기능이에요!
-                  <div className="absolute bottom-full left-[55px] transform -translate-x-1/2 border-4 border-transparent border-b-gray-800"></div>
-                </div>
-              )}
             </div>
 
             {/* 기본 필터 */}
@@ -101,12 +116,21 @@ const ClubFilter = ({ onFilterChange, onSearchChange }: ClubFilterProps) => {
                   onChange={(e) => handleFilterChange(e.target.value)}
                   className="bg-transparent border-none px-4 py-2 focus:ring-0 focus:outline-none text-gray-700 font-medium"
                 >
-                  <option value="all">모집 여부</option>
+                  <option value="all">전체</option>
                   <option value="recruiting">모집중</option>
                   <option value="closed">모집마감</option>
                 </select>
               </div>
         </div>
+
+        {/* 고급 필터 뷰 */}
+        <ClubFilterView
+          onFilteredClubs={handleFilteredClubs}
+          searchTerm={searchTerm}
+          filter={filter}
+          showFilters={showFilters}
+          onClose={closeFilters}
+        />
     </div>
   )
 }

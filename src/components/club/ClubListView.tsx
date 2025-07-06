@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { clubData, Club, tagColors } from '@/data/clubData';
 import ClubFilter from './ClubFilter';
-import { Star, Users, Clock, ExternalLink } from 'lucide-react';
+import { Star, Users, Clock } from 'lucide-react';
 import { useClubStatus } from '@/hooks/useClubStatus';
 import { useClubClicks } from '@/hooks/useClubClicks';
 import { useClubSearch } from '@/hooks/useClubSearch';
@@ -65,11 +65,12 @@ const ClubListView = () => {
     return (
       <div 
         key={club.id}
-        className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 p-6 border border-gray-100 hover:border-blue-200 opacity-1 animate-fadeInUp"
+        className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 p-6 border border-gray-100 hover:border-blue-200 opacity-1 animate-fadeInUp cursor-pointer"
         style={{
           animationDelay: `${index * 50}ms`,
           animationFillMode: 'forwards'
         }}
+        onClick={() => window.open(club.target, '_blank')}
       >
         <div className="flex items-center gap-6 ">
           {/* 로고 */}
@@ -145,29 +146,16 @@ const ClubListView = () => {
             </div>
             <p className="text-gray-600 mt-2">{club.description}</p>
 
-            <div className="flex items-center justify-between text-sm text-gray-500 mt-4">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
-                  <span>{club.class}기</span>
-                </div>
-
-                <div className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  <span>Since {club.founded}</span>
-                </div>
+            <div className="flex items-center gap-6 text-sm text-gray-500 mt-4">
+              <div className="flex items-center gap-1">
+                <Users className="w-4 h-4" />
+                <span>{club.class}기</span>
               </div>
 
-              <a 
-                href={club.target} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="동아리 페이지로 이동" 
-                className="text-gray-400 hover:text-blue-500 transition-colors"
-                onClick={(e) => e.stopPropagation()} // 카드 전체 클릭 방지
-              >
-                <ExternalLink className="w-5 h-5" />
-              </a>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>Since {club.founded}</span>
+              </div>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ const ClubListView = () => {
   const [currentFilter, setCurrentFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [hoveredClub, setHoveredClub] = useState<number | null>(null);
+  const [hoveredCardTooltip, setHoveredCardTooltip] = useState<number | null>(null);
   const [filteredClubs, setFilteredClubs] = useState<Club[]>(clubData);
   
   // 스크롤 위치 저장을 위한 ref
@@ -65,12 +66,14 @@ const ClubListView = () => {
     return (
       <div 
         key={club.id}
-        className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 p-6 border border-gray-100 hover:border-blue-200 opacity-1 animate-fadeInUp cursor-pointer"
+        className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 p-6 border border-gray-100 hover:border-blue-200 opacity-1 animate-fadeInUp cursor-pointer relative"
         style={{
           animationDelay: `${index * 50}ms`,
           animationFillMode: 'forwards'
         }}
         onClick={() => window.open(club.target, '_blank')}
+        onMouseEnter={() => setHoveredCardTooltip(club.id)}
+        onMouseLeave={() => setHoveredCardTooltip(null)}
       >
         <div className="flex items-center gap-6 ">
           {/* 로고 */}
@@ -159,6 +162,14 @@ const ClubListView = () => {
             </div>
           </div>
         </div>
+        
+        {/* 카드 클릭 툴팁 */}
+        {hoveredCardTooltip === club.id && (
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap z-20 shadow-lg">
+            리스트를 클릭하면 동아리 홈페이지로 이동할 수 있어요 !
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+          </div>
+        )}
       </div>
     );
   };

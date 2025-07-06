@@ -66,8 +66,3 @@ yarn dev
 cd server
 python scrapUrlServer.py
 ```
-
-## 환경 변수 설정
-
-### 프론트엔드 (.env 파일 생성)
-```env
